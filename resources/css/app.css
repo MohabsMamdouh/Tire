@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.display-none {
+    @apply hidden;
+}
+
+.custom-Form {
+    width: 40%;
+    min-width: 450px;
+    margin: auto;
+}
+
+.custom-Form .invalid {
+    border-color: darkred;
+    background-color: hsl(0, 30%, 95%);
+    margin-bottom: 0em;
+}
+.custom-Form .error-message {
+    margin-bottom: 1em;
+    color: hsl(0deg, 100%, 15%);
+}
+
+
+.svg-icon {
+    width: 1em;
+    height: 1em;
+}
