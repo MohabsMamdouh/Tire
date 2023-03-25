@@ -88,10 +88,13 @@ Route::middleware(['auth', 'verified'])->group(function ()
 
     // Address Section
     Route::controller(App\Http\Controllers\AddressController::class)->name('address.')->prefix('address')->group(function () {
-        Route::name('location.')->group(function () {
-            Route::get('location/', 'create')->name('add');
-            Route::post('/location/store', 'store')->name('store');
+        Route::name('location.')->prefix('location')->group(function () {
+            Route::get('/', 'create')->name('add');
+            Route::post('/store', 'store')->name('store');
         });
+
+        Route::any('mechanics-near', 'mechanicsNearME')->name('showMechanicsNearMe');
+        Route::any('mechanics-near-me', 'show')->name('mechanicsNearMe');
     });
 
     // Customer Section

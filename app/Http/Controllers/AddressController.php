@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\User;
 use App\Http\Requests\StoreAddressRequest;
 use App\Http\Requests\UpdateAddressRequest;
 use Illuminate\Http\Request;
@@ -14,17 +15,9 @@ class AddressController extends Controller
 {
     private $BingMapsKey = 'Ag0mGd-pnqRtYoueECNNzDNwARA_yN-agnPrcMzrVPsG3piMytyERDlXfkRhnmwQ';
 
-    private $baseURL = "http://dev.virtualearth.net/REST/v1/Locations/";
+    private $baseURL = "https://dev.virtualearth.net/REST/v1";
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    // private $distanceURL = "https://dev.virtualearth.net/REST/v1";
 
     /**
      * Show the form for creating a new resource.
@@ -34,8 +27,6 @@ class AddressController extends Controller
     public function create()
     {
         $data = [
-            'countries' => $this->countries,
-            'BingMapKey' => $this->BingMapsKey,
             'title' => 'Add Your Location',
         ];
 
@@ -59,7 +50,7 @@ class AddressController extends Controller
         *
         */
 
-        $findURL = $this->baseURL.$request['latitude'].','.$request['longitude']."?key=".$this->BingMapsKey;
+        $findURL = $this->baseURL.'/Locations/'.$request['latitude'].','.$request['longitude']."?key=".$this->BingMapsKey;
 
         // get the response from the Locations API and store it in a string
         $output = file_get_contents($findURL);
@@ -84,9 +75,19 @@ class AddressController extends Controller
             $address->address_latitude = $request['latitude'];
             $address->address_longitude = $request['longitude'];
             $address->address_ZipCode = '17444';
+            // dd($addressDetails);
             $address->save();
 
         return redirect()->back()->with('status', 'Added Successfully');
+    }
+
+    public function mechanicsNearME()
+    {
+        $data = [
+            'title' => 'Mechanics Near You',
+        ];
+
+        return view('address.mechanics_near', $data);
     }
 
     /**
@@ -95,42 +96,57 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function show(Address $address)
+    public function show(Request $request)
     {
-        //
+        $html = '';
+
+        $results = $this->getDistance($request->get('lat'), $request->get('long'));
+
+        foreach ($results as $res) {
+            $user = User::find($res[0]->id);
+            $user->visits;
+            $html .= '<a href="#">';
+            $html .= '<div class="flex items-center shadow hover:bg-indigo-100 hover:shadow-lg hover:rounded transition duration-150 ease-in-out transform hover:scale-105 p-3 dark:bg-slate-200 cursor-pointer">';
+            $html .= '<div class="text-l"><p class="text-gray-900 leading-none">';
+            $html .= $res[0]->fname . ' [' . count($res[0]->visits) . ']</p>';
+            $html .= '<p class="text-gray-600">' . $res[1] . ' ' . __('KM') . '</p>';
+            $html .= '<p class="text-gray-600">' . $res[0]->phone . '</p></div></div></a>';
+        }
+
+        return $html;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Address $address)
+    public function getDistance($lat, $long)
     {
-        //
-    }
+        $mechs = User::with('addresses')->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAddressRequest  $request
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAddressRequest $request, Address $address)
-    {
-        //
-    }
+        $headURL = $this->baseURL.'/Routes/DistanceMatrix?origins='.$lat.','.$long;
+        $bodyURL = '&destinations=';
+        $tailURL = "&travelMode=driving&output=json&key=".$this->BingMapsKey;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Address $address)
-    {
-        //
+        $results = [];
+
+        foreach ($mechs as $mech) {
+
+
+            if (!isset($mech->addresses[0])) {
+                continue;
+            }
+
+            $url = $headURL . $bodyURL . $mech->addresses[0]->address_latitude . ',' .$mech->addresses[0]->address_longitude;
+            $url .= $tailURL;
+
+            $output = file_get_contents($url);
+            $phpArray = json_decode($output, true);
+
+            $distance = $phpArray['resourceSets'][0]['resources'][0]['results'][0]['travelDistance'];
+
+
+            if ($distance < 10) {
+                array_push($results, array($mech, $distance));
+            }
+        }
+
+        return $results;
     }
 }

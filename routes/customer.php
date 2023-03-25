@@ -58,6 +58,12 @@ Route::middleware('customer')->group(function ()
 
     });
 
+    Route::controller(App\Http\Controllers\Customer\AddressCustomerController::class)->prefix('location')->name('location.')->group(function ()
+    {
+        Route::get('/', 'index')->name('showMechanicsNearMe');
+        Route::any('mechanics-near-me', 'show')->name('mechanicsNearMe');
+    });
+
 
 
 });
