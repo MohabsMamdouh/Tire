@@ -27,7 +27,6 @@ class UserController extends Controller
     {
         if(Auth::user()->can('show all visits')) {
             $countVisits = count(Visit::all());
-            $visits = Visit::with('customer', 'model', 'user')->latest()->take(5)->get();
             $countFeeds = count(Feedback::all());
 
             $feeds = DB::table('feedback')
@@ -40,9 +39,21 @@ class UserController extends Controller
                 ->where('feedback.status', 1)
                 ->latest()->take(3)->get();
 
+            $visits = DB::table('visits')
+                    ->join('customers', 'visits.customer_id', '=', 'customers.id')
+                    ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
+                    ->join('cars', 'car_models.car_id', '=', 'cars.id')
+                    ->join('users', 'visits.user_id', '=', 'users.id')
+                    ->select(
+                        'visits.id',
+                        'cars.car_name',
+                        'car_models.model',
+                        'visits.reason',
+                        'users.fname as mechanic',
+                        'customers.customer_fname as customer')->take(3)->get();
+
         } else {
             $countVisits = count(Visit::where('user_id', Auth::user()->id)->get());
-            $visits = Visit::with('customer', 'model', 'user')->where('user_id', Auth::user()->id)->latest()->take(5)->get();
             $countFeeds = count(Feedback::all());
             $feeds = DB::table('feedback')
                 ->join('customers', 'feedback.customer_id', '=', 'customers.id')
@@ -54,20 +65,32 @@ class UserController extends Controller
                 ->where('users.id', Auth::user()->id)
                 ->where('feedback.status', 1)
                 ->latest()->take(3)->get();
+
+            $visits = DB::table('visits')
+                ->join('customers', 'visits.customer_id', '=', 'customers.id')
+                ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
+                ->join('cars', 'car_models.car_id', '=', 'cars.id')
+                ->join('users', 'visits.user_id', '=', 'users.id')
+                ->select(
+                    'visits.id',
+                    'cars.car_name',
+                    'car_models.model',
+                    'visits.reason',
+                    'users.fname as mechanic',
+                    'customers.customer_fname as customer')
+                    ->where('user_id', Auth::user()->id)->take(5)->get();
         }
         $countCustomers = count(Customer::all());
         $countStuff = count(User::all());
-        $cars = Car::with('models')->get();
 
         $data = [
-            'cars' => $cars,
             'countCustomers' => $countCustomers,
             'countStuff' => $countStuff,
             'countVisits' => $countVisits,
             'visits' => $visits,
             'countFeeds' => $countFeeds,
             'feeds' => $feeds,
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
         ];
 
         return view('dashboard', $data);

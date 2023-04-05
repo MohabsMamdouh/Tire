@@ -80,71 +80,61 @@
 
                                             @foreach ($visits as $visit)
                                                 <tr>
-                                                    <td class="border px-2 py-2">{{ $visit->customer->customer_fname }}
+                                                    <td class="border px-2 py-2">{{ $visit->customer }}</td>
+                                                    <td class="border px-2 py-2">{{ $visit->car_name }}</td>
+                                                    <td class="border px-2 py-2">{{ $visit->model }}</td>
+                                                    <td class="border px-2 py-2">{{ $visit->reason }}</td>
+                                                    <td class="border px-2 py-2">
+                                                        @if (Auth::user()->fname == $visit->mechanic)
+                                                            {{ __('Me') }}
+                                                        @else
+                                                            {{ $visit->mechanic }}
+                                                        @endif
                                                     </td>
                                                     <td class="border px-2 py-2">
-                                                        @foreach ($cars as $car)
-                                                            @foreach ($car->models as $model)
-                                                                @if ($model->model == $visit->model->model)
-                                                                    {{ $car->car_name }}
-                                                                @break
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
-                                                </td>
-                                                <td class="border px-2 py-2">{{ $visit->model->model }}</td>
-                                                <td class="border px-2 py-2">{{ $visit->reason }}</td>
-                                                <td class="border px-2 py-2">
-                                                    @if (Auth::user()->fname == $visit->user->fname)
-                                                        {{ __('Me') }}
-                                                    @else
-                                                        {{ $visit->user->fname }}
-                                                    @endif
-                                                </td>
-                                                <td class="border px-2 py-2">
-                                                    <a href="{{ route('visit.edit', ['id' => $visit->id]) }}"
-                                                        class="text-blue-400 underline">{{ _('Edit') }}</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                        <a href="{{ route('visit.edit', ['id' => $visit->id]) }}"
+                                                            class="text-blue-400 underline">{{ _('Edit') }}</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div
-                    class="w-full max-w-full h-100 px-3 lg:w-5/12 lg:flex-none rounded-2xl border-0 border-solid bg-white bg-clip-border dark:bg-gray-700">
-                    <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
-                        <h6 class="capitalize dark:text-white">{{ __('Feedbacks') }}</h6>
-                        <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
-                            <i class="fa fa-arrow-up text-emerald-500"></i>
-                            <span class="font-semibold">{{ __('Latest Feedbacks') }}</span>
-                        </p>
-                    </div>
-                    <div class="relative w-full h-full overflow-x-auto rounded-2xl">
-                        @foreach ($feeds as $feed)
-                            <a href="#"
-                                class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                    {{ $feed->customer_fname }}</h5>
-                                <p class="font-normal text-gray-700 dark:text-gray-400">
-                                    <p class="text-gray-600 dark:text-gray-200">{{ $feed->message }}</p>
-                                    <p class="text-gray-600 dark:text-gray-200">
-                                        <b>
-                                            {{ $feed->car_name }}
-                                        </b> - {{ $feed->model }}
+                    <div
+                        class="w-full max-w-full h-100 px-3 lg:w-5/12 lg:flex-none rounded-2xl border-0 border-solid bg-white bg-clip-border dark:bg-gray-700">
+                        <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
+                            <h6 class="capitalize dark:text-white">{{ __('Feedbacks') }}</h6>
+                            <p class="mb-0 text-sm leading-normal dark:text-white dark:opacity-60">
+                                <i class="fa fa-arrow-up text-emerald-500"></i>
+                                <span class="font-semibold">{{ __('Latest Feedbacks') }}</span>
+                            </p>
+                        </div>
+                        <div class="relative w-full h-full overflow-x-auto rounded-2xl">
+                            @foreach ($feeds as $feed)
+                                <a href="#"
+                                    class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                        {{ $feed->customer_fname }}</h5>
+                                    <p class="font-normal text-gray-700 dark:text-gray-400">
+                                        <p class="text-gray-600 dark:text-gray-200">{{ $feed->message }}</p>
+                                        <p class="text-gray-600 dark:text-gray-200">
+                                            <b>
+                                                {{ $feed->car_name }}
+                                            </b> - {{ $feed->model }}
+                                        </p>
+                                        <p class="text-gray-600 dark:text-gray-200">{{ $feed->fname }}</p>
                                     </p>
-                                    <p class="text-gray-600 dark:text-gray-200">{{ $feed->fname }}</p>
-                                </p>
-                            </a>
-                        @endforeach
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </x-app-layout>

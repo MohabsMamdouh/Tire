@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Resources\v1;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+use App\Http\Resources\v1\VisitsResource;
+use App\Http\Resources\v1\VisitsCollection;
+
+class UsersResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     */
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'fname' => $this->fname,
+            'email' => $this->email,
+            'username' => $this->username,
+            'phone' => $this->phone,
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at,
+            'visits' => VisitsResource::collection($this->whenLoaded('visits')),
+        ];
+    }
+}

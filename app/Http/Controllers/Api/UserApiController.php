@@ -18,6 +18,51 @@ use Illuminate\Support\Facades\Auth;
 
 class UserApiController extends Controller
 {
+    public function dashboard()
+    {
+        $countVisits = count(Visit::all());
+        $countFeeds = count(Feedback::all());
+
+        $feeds = DB::table('feedback')
+            ->join('customers', 'feedback.customer_id', '=', 'customers.id')
+            ->join('visits', 'visits.id', '=', 'feedback.visit_id')
+            ->join('users', 'visits.user_id', '=', 'users.id')
+            ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
+            ->join('cars', 'cars.id', '=', 'car_models.car_id')
+            ->select('feedback.created_at', 'customers.customer_fname','feedback.message','cars.car_name', 'car_models.model','users.fname')
+            ->where('feedback.status', 1)
+            ->latest()->take(3)->get();
+
+        $visits = DB::table('visits')
+            ->join('customers', 'visits.customer_id', '=', 'customers.id')
+            ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
+            ->join('cars', 'car_models.car_id', '=', 'cars.id')
+            ->join('users', 'visits.user_id', '=', 'users.id')
+            ->select(
+                'visits.id',
+                'cars.car_name',
+                'car_models.model',
+                'visits.reason',
+                'users.fname as mechanic',
+                'customers.customer_fname as customer')->take(3)->get();
+
+        $countCustomers = count(Customer::all());
+        $countStuff = count(User::all());
+
+        $data = [
+            'countCustomers' => $countCustomers,
+            'countStuff' => $countStuff,
+            'countVisits' => $countVisits,
+            'countFeeds' => $countFeeds,
+            'visits' => $visits,
+            'feeds' => $feeds,
+            'title' => 'Dashboard',
+        ];
+
+        return $data;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
