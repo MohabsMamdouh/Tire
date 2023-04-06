@@ -25,40 +25,19 @@ Route::prefix('v1')->namespace('App\Http\Controllers\Api\v1')->group(function ()
     Route::apiResource('customers', CustomerApiController::class);
     Route::get('customers/{customer}/show-my-visits', ['uses' => 'CustomerApiController@showMyVisits']);
     Route::get('customers/{customer}/reset-password', ['uses' => 'CustomerApiController@resetPassword']);
+
+    // Cars
+    Route::apiResource('cars', CarApiController::class);
+    Route::get('cars/list/update', ['uses' => 'CarApiController@updateCarList']);
+
+    // Customers Car Info
+    Route::post('customer/cars/store', ['uses' => 'CustomerCarInfoApiController@storeCustomerCar']);
+    Route::get('customer/{customer}/cars/', ['uses' => 'CustomerCarInfoApiController@getCustomerCarsinfo']);
+    Route::delete('customer/cars/delete', ['uses' => 'CustomerCarInfoApiController@destroy']);
+
+    // Feedbacks
+    Route::apiResource('feedbacks', FeedbackApiController::class);
 });
-
-
-// // Cars
-// route::controller(App\Http\Controllers\Api\CarApiController::class)->prefix('cars')->group(function ()
-// {
-//     Route::get('/', 'index');
-//     Route::get('update-car-list/', 'UpdateCarsFromAPIToDB');
-//     Route::get('search/', 'searchCar');
-//     Route::get('car-models/', 'getCarModels');
-//     Route::get('car-model-specs/', 'getCarSpecs');
-// });
-
-
-// // Feedback
-// route::controller(App\Http\Controllers\Api\FeedbackApiController::class)->prefix('feedbacks')->group(function ()
-// {
-//     Route::get('/', 'index');
-//     Route::post('/store', 'store');
-//     Route::get('none-accepted/', 'acceptFeed');
-//     Route::get('accept/{feedback}', 'accept');
-//     Route::get('/destroy/{feedback}', 'destroy');
-// });
-
-
-// // Customer Car Info
-// route::controller(App\Http\Controllers\Api\CustomerCarInfoApiController::class)->prefix('Customer/Car')->group(function ()
-// {
-//     Route::post('/add', 'storeCustomerCar');
-//     Route::get('/{cid}/info', 'getCustomerCarsinfo');
-//     Route::get('get-customer-car', 'getCustomerCar');
-//     Route::get('/destroy/{cid}/{model_id}', 'destroy');
-
-// });
 
 
 // // Users

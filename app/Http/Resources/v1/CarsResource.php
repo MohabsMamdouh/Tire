@@ -19,6 +19,7 @@ class CarsResource extends JsonResource
             'carName' => $this->car_name,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
+            'models' => CarModelResource::collection($this->whenLoaded('models')),
         ];
     }
 }

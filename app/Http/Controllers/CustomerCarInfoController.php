@@ -41,12 +41,7 @@ class CustomerCarInfoController extends Controller
 
         $customer = Customer::where('customer_fname', $request['fname'])->first();
 
-        $customerCarInfo = new CustomerCarInfo();
-
-        $customerCarInfo->model_id = $model->id;
-        $customerCarInfo->customer_id = $customer->id;
-
-        $customerCarInfo->save();
+        $customer->models()->attach($model->id);
 
         return redirect()->route('customer.ShowSingle', ['id' => $customer->id]);
     }

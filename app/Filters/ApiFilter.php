@@ -26,10 +26,13 @@ class ApiFilter
             }
 
             $column = $this->columnMap[$parm] ?? $parm;
-
             foreach ($opreators as $opreator) {
                 if(isset($query[$opreator])) {
-                    $eloQuery[] = [$column, $this->opreatorMap[$opreator], $query[$opreator]];
+                    if ($opreator == "lk") {
+                        $eloQuery[] = [$column, $this->opreatorMap[$opreator], '%'.$query[$opreator].'%'];
+                    } else {
+                        $eloQuery[] = [$column, $this->opreatorMap[$opreator], $query[$opreator]];
+                    }
                 }
             }
         }

@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::table('car_models', function (Blueprint $table) {
-            $table->string('cylinders');
-            $table->string('drive');
-            $table->string('eng_dscr');
-            $table->string('fueltype');
-            $table->string('fueltype1');
-            $table->string('mpgdata');
-            $table->string('phevblended');
+            $table->string('cylinders')->nullable();
+            $table->string('drive')->nullable();
+            $table->string('eng_dscr')->nullable();
+            $table->string('fueltype')->nullable();
+            $table->string('fueltype1')->nullable();
+            $table->string('mpgdata')->nullable();
+            $table->string('phevblended')->nullable();
 
         });
     }

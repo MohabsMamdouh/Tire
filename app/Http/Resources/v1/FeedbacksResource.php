@@ -28,8 +28,8 @@ class FeedbacksResource extends JsonResource
             'status' => $this->status,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
-            'visit' => VisitsResource::collection($this->whenLoaded('visit')),
-            'customer' => CustomerResource::collection($this->whenLoaded('customer')),
+            'visit' => new VisitsResource($this->whenLoaded('visit')),
+            'customer' => new CustomerResource($this->whenLoaded('customer')),
         ];
     }
 }

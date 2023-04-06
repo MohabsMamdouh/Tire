@@ -34,9 +34,9 @@ class VisitsResource extends JsonResource
             'carModelId' => $this->car_model_id,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
-            'customer' => new CustomerResource($this->whenLoaded('customer')),
-            'model' => new CarModelResource($this->whenLoaded('model')),
-            'user' => new UsersResource($this->whenLoaded('user')),
+            'customer' => new CustomerResource($this->customer),
+            'model' => new CarModelResource($this->model),
+            'user' => new UsersResource($this->user),
             'feedbacks' => FeedbacksResource::collection($this->whenLoaded('feedbacks')),
         ];
     }
