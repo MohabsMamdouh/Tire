@@ -37,17 +37,17 @@ Route::prefix('v1')->namespace('App\Http\Controllers\Api\v1')->group(function ()
 
     // Feedbacks
     Route::apiResource('feedbacks', FeedbackApiController::class);
+
+    // Users
+    Route::apiResource('users', UserApiController::class);
+    Route::get('users/show/all', ['uses' => 'UserApiController@showAll']);
+    Route::put('users/{user}/reset-password', ['uses' => 'UserApiController@resetPassword']);
+
+    // Visits
+    Route::apiResource('users', UserApiController::class);
+
+
 });
-
-
-// // Users
-// Route::resource('users', App\Http\Controllers\Api\UserApiController::class);
-// route::controller(App\Http\Controllers\Api\UserApiController::class)->prefix('users/f')->group(function ()
-// {
-//     Route::get('/show/all', 'showAll');
-//     Route::get('/dashboard', 'dashboard');
-//     Route::post('reset-password/{user}', 'resetPassword');
-// });
 
 // // Visits
 // Route::resource('visits', App\Http\Controllers\Api\VisitApiController::class);

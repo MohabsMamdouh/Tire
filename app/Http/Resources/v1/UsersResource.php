@@ -4,8 +4,11 @@ namespace App\Http\Resources\v1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+// Resources & Collection
 use App\Http\Resources\v1\VisitsResource;
 use App\Http\Resources\v1\VisitsCollection;
+use App\Http\Resources\v1\RolesResource;
+use App\Http\Resources\v1\RolesCollection;
 
 class UsersResource extends JsonResource
 {
@@ -26,6 +29,7 @@ class UsersResource extends JsonResource
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
             'visits' => VisitsResource::collection($this->whenLoaded('visits')),
+            'roles' => RolesResource::collection($this->whenLoaded('roles')),
         ];
     }
 }

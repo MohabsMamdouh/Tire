@@ -52,11 +52,6 @@ class FeedbackApiController extends Controller
         return new FeedbacksCollection($feedbacks->paginate());
     }
 
-    public function create()
-    {
-        # code...
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -81,11 +76,6 @@ class FeedbackApiController extends Controller
         # code...
     }
 
-    public function edit(Feedback $feedback)
-    {
-        # code...
-    }
-
     public function update(Feedback $feedback)
     {
         $feedback->status = 1;
@@ -97,7 +87,6 @@ class FeedbackApiController extends Controller
             'msg' => 'Feedback Accepted'
         ];
     }
-
 
     /**
      * Remove the specified resource from storage.

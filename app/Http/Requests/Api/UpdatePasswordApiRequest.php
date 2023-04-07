@@ -45,4 +45,5 @@ class UpdatePasswordApiRequest extends FormRequest
             'password_confirmation.min'  => 'Password must have at least 8 character',
         ];
     }
+
 }

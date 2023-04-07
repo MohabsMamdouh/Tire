@@ -43,4 +43,33 @@ class StoreCustomerApiRequest extends FormRequest
             'customer_phone' => $this->customerPhone,
         ]);
     }
+
+    /**
+     * Custom message for validation
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'customer_email.required' => 'Email is required!',
+            'customer_email.unique'  => 'This email is in use! Try another one.',
+
+            'customer_address.required' => 'Address is required!',
+
+            'customer_fname.required' => 'Name is required!',
+            'customer_fname.max' => 'Name can not have over 50 character!',
+
+            'customer_username.required' => 'Username is required!',
+            'customer_username.unique'  => 'This username is in use! Try another one.',
+            'customer_username.min'  => 'username must have at least 4 character.',
+
+            'password.required' => 'Password is required!',
+            'password.min'  => 'Password must have at least 8 character',
+
+            'customer_phone.required' => 'Phone is required!',
+
+            'roles.required' => 'Roles is required!',
+        ];
+    }
 }

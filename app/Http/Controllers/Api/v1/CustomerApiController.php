@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+// Controllers
 use App\Http\Controllers\Controller;
 
 // Models
@@ -24,7 +25,6 @@ use App\Http\Resources\v1\VisitsCollection;
 // Filters
 use App\Filters\V1\CustomersFilter;
 use App\Filters\V1\VisitsFilter;
-
 
 
 class CustomerApiController extends Controller
@@ -64,16 +64,6 @@ class CustomerApiController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -82,6 +72,8 @@ class CustomerApiController extends Controller
     public function store(StoreCustomerApiRequest $request)
     {
         $customer = new CustomerResource(Customer::create($request->all()));
+
+        $customer->assignRole($request['roles']);
 
         return [
             "status" => 200,

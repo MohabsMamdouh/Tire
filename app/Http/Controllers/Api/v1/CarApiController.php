@@ -44,22 +44,12 @@ class CarApiController extends Controller
         return new CarsCollection($cars->paginate());
     }
 
-    public function create()
-    {
-        # code...
-    }
-
     public function store(Request $request)
     {
         # code...
     }
 
     public function show(Car $car)
-    {
-        # code...
-    }
-
-    public function edit(Car $car)
     {
         # code...
     }
