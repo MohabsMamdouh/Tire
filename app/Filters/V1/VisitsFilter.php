@@ -10,7 +10,6 @@ class VisitsFilter extends ApiFilter
 {
     protected $safeParms = [
         'customerId' => ['eq'],
-        'reason' => ['eq'],
         'userId' => ['eq'],
         'carModelId' => ['eq'],
         'createdAt' => ['eq', 'gt', 'lt', 'lte', 'gte'],
@@ -33,5 +32,6 @@ class VisitsFilter extends ApiFilter
         'lt' => '<',
         'lte' => '<=',
         'ne' => '!=',
+        'lk' => 'like',
     ];
 }

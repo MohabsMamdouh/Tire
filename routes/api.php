@@ -44,19 +44,8 @@ Route::prefix('v1')->namespace('App\Http\Controllers\Api\v1')->group(function ()
     Route::put('users/{user}/reset-password', ['uses' => 'UserApiController@resetPassword']);
 
     // Visits
-    Route::apiResource('users', UserApiController::class);
-
-
+    Route::apiResource('visits', VisitApiController::class);
 });
-
-// // Visits
-// Route::resource('visits', App\Http\Controllers\Api\VisitApiController::class);
-// route::controller(App\Http\Controllers\Api\VisitApiController::class)->prefix('visits/f')->group(function ()
-// {
-//     Route::get('/showCustomerVisits/{cid}', 'showCustomerVisits');
-//     Route::get('search', 'searchVisit');
-//     Route::get('getCustomerVisits', 'getCustomerVisits');
-// });
 
 
 // Customer Interface

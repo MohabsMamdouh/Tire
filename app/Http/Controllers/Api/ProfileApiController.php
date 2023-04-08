@@ -25,7 +25,7 @@ class ProfileApiController extends Controller
         $request->user()->save();
 
         return [
-            'status' => 1,
+            'status' => 200,
             'msg' => 'profile-updated'
         ];
     }
@@ -49,7 +49,7 @@ class ProfileApiController extends Controller
         $request->session()->regenerateToken();
 
         return [
-            'status' => 1,
+            'status' => 200,
             'msg' => 'profile-deleted'
         ];
     }

@@ -89,7 +89,6 @@ class CustomerApiController extends Controller
      */
     public function show(Customer $customer)
     {
-
         $carModels = request()->query('carModels');
 
         $visits = request()->query('visits');
@@ -117,16 +116,6 @@ class CustomerApiController extends Controller
         return new CustomerResource($customer);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Customer $customer)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

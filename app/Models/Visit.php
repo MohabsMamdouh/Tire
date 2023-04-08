@@ -18,7 +18,7 @@ class Visit extends Model
         'customer_id',
         'reason',
         'user_id',
-        'model_id',
+        'car_model_id',
     ];
 
     /**
