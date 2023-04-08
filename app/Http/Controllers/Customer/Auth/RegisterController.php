@@ -39,7 +39,7 @@ class RegisterController extends Controller
         $customer = new Customer();
         $customer->fill($request->all());
         $customer->customer_username = Str::lower(str_replace(' ', '', $request->customer_fname));
-        // dd(Str::lower(str_replace(' ', '', $request->customer_fname)));
+
         $customer->save();
         $customer->assignRole('customer');
 

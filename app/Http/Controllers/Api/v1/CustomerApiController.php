@@ -116,7 +116,6 @@ class CustomerApiController extends Controller
         return new CustomerResource($customer);
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -134,7 +133,6 @@ class CustomerApiController extends Controller
             "msg" => "Customer updated successfully"
         ];
     }
-
 
     public function showMyVisits(Customer $customer)
     {

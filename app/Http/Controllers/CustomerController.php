@@ -72,6 +72,8 @@ class CustomerController extends Controller
 
         $customer->save();
 
+        $customer->assignRole($request['roles']);
+
         // $customer->assignRole($request['roles']);
 
         return redirect()->route('customer.ShowSingle', ['id' => $customer->id]);
@@ -135,6 +137,14 @@ class CustomerController extends Controller
         $customer->fill($request->all());
         $customer->save();
 
+        if (!$customer->hasRole($request['roles'])) {
+            if (isset($customer->roles[0])) {
+                foreach ($customer->roles as $role) {
+                    $customer->removeRole($role->name);
+                }
+            }
+            $customer->assignRole($request['roles']);
+        }
 
         return redirect(route('customer.ShowSingle', ['id' => $id]));
     }
