@@ -17,9 +17,6 @@ class CarSeeder extends Seeder
      */
     public function run()
     {
-        $car = new Car();
-        $car->car_name = "Tesla";
-
-        $car->save();
+        //
     }
 }

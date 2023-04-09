@@ -19,15 +19,8 @@ class CustomerSeeder extends Seeder
      */
     public function run()
     {
-
-        $customer = new Customer();
-        $customer->customer_fname = "Eslam Mamdouh";
-        $customer->customer_username = 'eslammamdouh';
-        $customer->customer_address = "El-Slam";
-        $customer->password = 'M01090483647';
-        $customer->customer_phone = "01090483647";
-        $customer->email = "eslam@info.eg";
-        $customer->save();
-        $customer->assignRole('customer');
+        Customer::factory()
+            ->count(5)
+            ->create();
     }
 }

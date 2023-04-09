@@ -18,12 +18,6 @@ class CarModelSeeder extends Seeder
      */
     public function run()
     {
-        $car = Car::Where('car_name', 'Tesla')->first();
-
-        $model = new CarModel();
-        $model->model = "01";
-        $model->car_id = $car->id;
-
-        $model->save();
+       //
     }
 }

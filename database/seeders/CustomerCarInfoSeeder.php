@@ -18,13 +18,6 @@ class CustomerCarInfoSeeder extends Seeder
      */
     public function run()
     {
-        $model = CarModel::Where('model', '01')->first();
-        $customer = Customer::Where('customer_fname', 'Eslam Mamdouh')->first();
-
-        $CustomerCarInfo = new CustomerCarInfo();
-        $CustomerCarInfo->customer_id = $customer->id;
-        $CustomerCarInfo->model_id = $model->id;
-
-        $CustomerCarInfo->save();
+        //
     }
 }

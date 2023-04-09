@@ -20,16 +20,6 @@ class VisitSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::Where('fname', 'Mohab Mamdouh')->first();
-        $customer = Customer::Where('customer_fname', 'Eslam Mamdouh')->first();
-        $CustomerCarInfo = CustomerCarInfo::Where('customer_id', $customer->id)->first();
-
-        $visit = new Visit();
-        $visit->customer_id = $customer->id;
-        $visit->reason = "Fixing";
-        $visit->user_id = $user->id;
-        $visit->car_model_id = $CustomerCarInfo->model_id;
-
-        $visit->save();
+        //
     }
 }
