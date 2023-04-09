@@ -95,12 +95,18 @@ class UserApiController extends Controller
 
         $roles = request()->query('roles');
 
+        $address = request()->query('address');
+
         if ($visits) {
             $user->visits;
         }
 
         if ($roles) {
             $user->roles;
+        }
+
+        if ($address) {
+            $user->addresses;
         }
 
         return new UsersResource($user);
@@ -151,7 +157,13 @@ class UserApiController extends Controller
 
         $visits = $request->query('visits');
 
+        $address = request()->query('address');
+
         $users = User::where($filterItmes);
+
+        if ($address) {
+            $users->with('addresses');
+        }
 
         if ($visits) {
             $users->with('visits');

@@ -45,7 +45,9 @@ Route::prefix('v1')->namespace('App\Http\Controllers\Api\v1')->group(function ()
 
     // Visits
     Route::apiResource('visits', VisitApiController::class);
+
+    // Address
+    Route::post('address/mechanic/store/', ['uses' => 'AddressApiController@store']);
+    Route::get('address/mechanic/near', ['uses' => 'AddressApiController@near']);
+
 });
-
-
-// Customer Interface

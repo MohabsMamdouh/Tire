@@ -14,6 +14,7 @@ class Address extends Model
         'address_address',
         'address_latitude',
         'address_longitude',
+        'address_ZipCode',
     ];
 
 

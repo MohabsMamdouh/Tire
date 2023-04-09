@@ -7,8 +7,12 @@ use Illuminate\Http\Resources\Json\JsonResource;
 // Resources & Collection
 use App\Http\Resources\v1\VisitsResource;
 use App\Http\Resources\v1\VisitsCollection;
+
 use App\Http\Resources\v1\RolesResource;
 use App\Http\Resources\v1\RolesCollection;
+
+use App\Http\Resources\v1\AddressResource;
+use App\Http\Resources\v1\AddressCollection;
 
 class UsersResource extends JsonResource
 {
@@ -30,6 +34,7 @@ class UsersResource extends JsonResource
             'updatedAt' => $this->updated_at,
             'visits' => VisitsResource::collection($this->whenLoaded('visits')),
             'roles' => RolesResource::collection($this->whenLoaded('roles')),
+            'address' => AddressResource::collection($this->whenLoaded('addresses')),
         ];
     }
 }

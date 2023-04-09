@@ -17,8 +17,6 @@ class AddressController extends Controller
 
     private $baseURL = "https://dev.virtualearth.net/REST/v1";
 
-    // private $distanceURL = "https://dev.virtualearth.net/REST/v1";
-
     /**
      * Show the form for creating a new resource.
      *
@@ -70,13 +68,13 @@ class AddressController extends Controller
             $address = Address::where('user_id', Auth::user()->id)->get()->first();
         }
 
-            $address->user_id = Auth::user()->id;
-            $address->address_address = $addressDetails['formattedAddress'];
-            $address->address_latitude = $request['latitude'];
-            $address->address_longitude = $request['longitude'];
-            $address->address_ZipCode = '17444';
-            // dd($addressDetails);
-            $address->save();
+        $address->user_id = Auth::user()->id;
+        $address->address_address = $addressDetails['formattedAddress'];
+        $address->address_latitude = $request['latitude'];
+        $address->address_longitude = $request['longitude'];
+        $address->address_ZipCode = '17444';
+        // dd($addressDetails);
+        $address->save();
 
         return redirect()->back()->with('status', 'Added Successfully');
     }
