@@ -60,8 +60,6 @@ class FeedbackApiController extends Controller
      */
     public function store(StoreFeedbackApiRequest $request)
     {
-        $customer = Customer::find($request['customerId']);
-
         $feedback = Feedback::create($request->all());
 
         return [

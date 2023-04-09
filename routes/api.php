@@ -31,9 +31,9 @@ Route::prefix('v1')->namespace('App\Http\Controllers\Api\v1')->group(function ()
     Route::get('cars/list/update', ['uses' => 'CarApiController@updateCarList']);
 
     // Customers Car Info
-    Route::post('customer/cars/store', ['uses' => 'CustomerCarInfoApiController@storeCustomerCar']);
+    Route::post('customer/{customer}/cars/store', ['uses' => 'CustomerCarInfoApiController@storeCustomerCar']);
     Route::get('customer/{customer}/cars/', ['uses' => 'CustomerCarInfoApiController@getCustomerCarsinfo']);
-    Route::delete('customer/cars/delete', ['uses' => 'CustomerCarInfoApiController@destroy']);
+    Route::delete('customer/{customer}/cars/delete', ['uses' => 'CustomerCarInfoApiController@destroy']);
 
     // Feedbacks
     Route::apiResource('feedbacks', FeedbackApiController::class);

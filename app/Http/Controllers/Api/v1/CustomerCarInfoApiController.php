@@ -18,12 +18,10 @@ use App\Http\Resources\v1\CustomerCollection;
 
 class CustomerCarInfoApiController extends Controller
 {
-    public function storeCustomerCar(Request $request)
+    public function storeCustomerCar(Request $request, Customer $customer)
     {
 
         $model = CarModel::find($request['model']);
-
-        $customer = Customer::find($request['customer']);
 
         $customer->models()->attach($model->id);
 
@@ -40,11 +38,8 @@ class CustomerCarInfoApiController extends Controller
         return new CustomerResource($customer);
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, Customer $customer)
     {
-        // $carCustomerInfo = CustomerCarInfo::where('customer_id', $cid)->where('model_id', $model_id)->delete();
-        $customer = Customer::find($request['customer']);
-
         $customer->models()->wherePivot('model_id', '=', $request['model'])->detach();
 
         return [
