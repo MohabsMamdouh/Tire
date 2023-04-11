@@ -19,9 +19,14 @@ use App\Http\Resources\v1\CarsCollection;
 // Filters
 use App\Filters\V1\CarsFilter;
 
+// Traits
+use App\Traits\CarsTrait;
+
 
 class CarApiController extends Controller
 {
+    use CarsTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -75,9 +80,9 @@ class CarApiController extends Controller
         // Decode JSON data into PHP array
         $response_data = json_decode($json_data);
 
-        (new CarController)->StoreCarName($response_data->records);
+        $this->StoreCarName($response_data->records);
 
-        (new CarController)->storeModelsSpecs($response_data->records);
+        $this->storeModelsSpecs($response_data->records);
 
         return [
             'status' => 200,
