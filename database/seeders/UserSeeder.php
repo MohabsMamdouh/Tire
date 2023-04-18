@@ -24,10 +24,8 @@ class UserSeeder extends Seeder
         $user->email = "super_admin@info.com";
         $user->password = "password";
         $user->phone = "01234564797";
-
         $user->save();
-        $user->assignRole('super_admin');
-
+        $user->roles()->attach(Role::Where('name', 'super_admin')->first());
 
         User::factory()
             ->count(5)
