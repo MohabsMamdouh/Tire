@@ -98,7 +98,7 @@ class UserController extends Controller
 
     public function showAll()
     {
-        $users = User::with('visits', 'feedbacks')->get();
+        $users = User::with('visits')->get();
 
         $data = [
             'users' => $users,

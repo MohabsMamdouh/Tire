@@ -83,13 +83,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all of the feedbacks for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    public function feedbacks(): HasManyThrough
-    {
-        return $this->hasManyThrough(Comment::class, Post::class);
-    }
+    //  * Get all of the feedbacks for the User
+    //  *
+    //  * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    //  */
+    // public function feedbacks(): HasManyThrough
+    // {
+    //     return $this->hasManyThrough(Comment::class, Post::class);
+    // }
 
 }
