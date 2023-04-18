@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User();
+        $user = new User(); // Let's see
         $user->fname = "super admin";
         $user->username = "super_admin";
         $user->email = "super_admin@info.com";
