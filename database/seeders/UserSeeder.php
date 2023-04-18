@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         $user->password = "password";
         $user->phone = "01234564797";
         $user->save();
-        $user->roles()->attach(Role::Where('name', 'super_admin')->first());
+        $user->assignRole('super_admin');
 
         User::factory()
             ->count(5)
