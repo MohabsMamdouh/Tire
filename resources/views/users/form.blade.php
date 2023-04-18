@@ -3,7 +3,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ Route::currentRouteName() == 'user.edit' ? __('Update User') : __('Create New User') }}
+            {{ Route::currentRouteName() == 'user.edit' ? __('Update Mechanic') : __('Create New Mechanic') }}
         </h2>
     </x-slot>
 

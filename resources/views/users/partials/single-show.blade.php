@@ -7,7 +7,7 @@
                 <p class="text-gray-400 dark:text-gray-300">{{ __('Visits') }}</p>
             </div>
             <div>
-                <p class="font-bold text-gray-700 dark:text-gray-100 text-xl">10</p>
+                <p class="font-bold text-gray-700 dark:text-gray-100 text-xl">{{ $user->feedbacks != null ? count($user->feedbacks) : 0 }}</p>
                 <p class="text-gray-400 dark:text-gray-300">{{ __('Feedback') }}</p>
             </div>
         </div>

@@ -98,11 +98,11 @@ class UserController extends Controller
 
     public function showAll()
     {
-        $users = User::with('visits')->get();
+        $users = User::with('visits', 'feedbacks')->get();
 
         $data = [
             'users' => $users,
-            'title' => 'Users'
+            'title' => 'Mechanics'
         ];
 
         return view('users.show', $data);
@@ -115,7 +115,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::where('name', '<>', 'super_admin')->get();
+        $roles = Role::where('name', '<>', 'super_admin')->where('name', '<>', 'customer')->get();
 
         $data = [
             'roles' => $roles,
@@ -178,7 +178,7 @@ class UserController extends Controller
     {
         $user = User::with('roles')->find($id);
 
-        $roles = Role::where('name', '<>', 'super_admin')->get();
+        $roles = Role::where('name', '<>', 'super_admin')->where('name', '<>', 'customer')->get();
 
         $data = [
             'user' => $user,

@@ -8,7 +8,7 @@
                         <th class="px-2 py-2">{{ __('Car') }}</th>
                         <th class="px-2 py-2">{{ __('Model') }}</th>
                         <th class="px-2 py-2">{{ __('Reason') }}</th>
-                        <th class="px-2 py-2">{{ __('Stuff Member') }}</th>
+                        <th class="px-2 py-2">{{ __('Mechanic') }}</th>
                         <th class="px-2 py-2">{{ __('Date') }}</th>
                         <th class="px-2 py-2">{{ __('Edit') }}</th>
                     </tr>

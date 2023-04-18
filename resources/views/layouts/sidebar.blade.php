@@ -107,7 +107,7 @@
                 {{ Route::currentRouteName() == 'users.showAll' ? 'bg-gray-200 dark:bg-gray-700' : 'bg-transparent dark:bg-transparent' }}
                 rounded-lg  dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                 href="{{ route('user.showAll') }}">
-                {{ __('Stuff') }}
+                {{ __('Mechanics') }}
             </a>
         @endcan
 

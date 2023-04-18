@@ -31,11 +31,6 @@
                                                 </p>
                                                 <h5 class="mb-2 font-bold dark:text-white">{{ $card[1] }}
                                                 </h5>
-                                                <p class="mb-0 dark:text-white dark:opacity-60">
-                                                    <span
-                                                        class="text-sm font-bold leading-normal text-emerald-500">+55%</span>
-                                                    {{ 'Since ' . $card[2] }}
-                                                </p>
                                             </div>
                                         </div>
                                         <div class="px-3 text-right basis-1/3">

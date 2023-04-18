@@ -119,50 +119,82 @@ class VisitController extends Controller
                         $query->where('customer_fname', 'like', '%'.$q.'%');
                     })->get();
 
-        // $feeds = DB::table('visits')
-        //             ->join('customers', 'feedback.customer_id', '=', 'customers.id')
-        //             ->join('visits', 'visits.id', '=', 'feedback.visit_id')
-        //             ->join('users', 'visits.user_id', '=', 'users.id')
-        //             ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
-        //             ->join('cars', 'cars.id', '=', 'car_models.car_id')
-        //             ->select('feedback.id', 'feedback.created_at', 'customers.customer_fname','feedback.message','cars.car_name', 'car_models.model','users.fname')
-        //             ->where('status', 0)
-        //             ->get();
-
         return $visits;
     }
 
 
     public function searchVisit(Request $request)
     {
-        $cars = Car::with('models')->get();
         $output = '';
         $q = $request->get('query');
         if($q != '')
         {
-            if(Auth::user()->can('show all visits')) {
-                $data = Visit::with('model')->whereHas('customer', function ($query) use($q){
-                                $query->where('customer_fname', 'like', '%'.$q.'%');
-                            }) ->orwhereHas('user', function ($query) use($q)
-                            {
-                                $query->where('fname', 'like', '%'.$q.'%');
-                            })->get();
-            } else {
-                $data = Visit::with('model')
-                            ->where('user_id', Auth::user()->id)
-                            ->whereHas('customer', function ($query) use($q){
-                                $query->where('customer_fname', 'like', '%'.$q.'%');
-                            })->orwhereHas('user', function ($query) use($q)
-                            {
-                                $query->where('fname', 'like', '%'.$q.'%');
-                            })->get();
-            }
+            if(Auth::user()->can('show all visits')){
+                $data = DB::table('visits')
+                    ->join('customers', 'visits.customer_id', '=', 'customers.id')
+                    ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
+                    ->join('cars', 'car_models.car_id', '=', 'cars.id')
+                    ->join('users', 'visits.user_id', '=', 'users.id')
+                    ->select(
+                        'visits.id',
+                        'cars.car_name',
+                        'car_models.model',
+                        'visits.reason',
+                        'visits.created_at',
+                        'users.fname as mechanic',
+                        'customers.customer_fname as customer')
+                    ->where('customers.customer_fname', 'like', '%'.$q.'%')
+                    ->orwhere('users.fname', 'like', '%'.$q.'%')->get();
 
-        } else {
-            if(Auth::user()->can('show all visits')) {
-                $data = Visit::with('model', 'customer', 'user')->get();
             } else {
-                $data = Visit::with('model', 'customer', 'user')->where('user_id', Auth::user()->id)->get();
+                $data = DB::table('visits')
+                    ->join('customers', 'visits.customer_id', '=', 'customers.id')
+                    ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
+                    ->join('cars', 'car_models.car_id', '=', 'cars.id')
+                    ->join('users', 'visits.user_id', '=', 'users.id')
+                    ->select(
+                        'visits.id',
+                        'cars.car_name',
+                        'car_models.model',
+                        'visits.reason',
+                        'visits.created_at',
+                        'users.fname as mechanic',
+                        'customers.customer_fname as customer')
+                    ->where('users.id', Auth::user()->id)
+                    ->where('customers.customer_fname', 'like', '%'.$q.'%')
+                    ->orwhere('users.fname', 'like', '%'.$q.'%')->get();
+            }
+        } else {
+            if(Auth::user()->can('show all visits')){
+                $data = DB::table('visits')
+                    ->join('customers', 'visits.customer_id', '=', 'customers.id')
+                    ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
+                    ->join('cars', 'car_models.car_id', '=', 'cars.id')
+                    ->join('users', 'visits.user_id', '=', 'users.id')
+                    ->select(
+                        'visits.id',
+                        'cars.car_name',
+                        'car_models.model',
+                        'visits.reason',
+                        'visits.created_at',
+                        'users.fname as mechanic',
+                        'customers.customer_fname as customer')->get();
+
+            } else {
+                $data = DB::table('visits')
+                    ->join('customers', 'visits.customer_id', '=', 'customers.id')
+                    ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
+                    ->join('cars', 'car_models.car_id', '=', 'cars.id')
+                    ->join('users', 'visits.user_id', '=', 'users.id')
+                    ->select(
+                        'visits.id',
+                        'cars.car_name',
+                        'car_models.model',
+                        'visits.reason',
+                        'visits.created_at',
+                        'users.fname as mechanic',
+                        'customers.customer_fname as customer')
+                    ->where('users.id', Auth::user()->id)->get();
             }
         }
 
@@ -174,21 +206,14 @@ class VisitController extends Controller
             foreach($data as $visit)
             {
                     $output .= '<tr>';
-                    $output .= '<td class="border px-2 py-2">'.$visit->customer->customer_fname.'</td>';
-
-                    foreach ($cars as $car) {
-                        foreach ($car->models as $model ) {
-                            if ($model->model == $visit->model->model) {
-                                $output .= '<td class="border px-2 py-2">'.$car->car_name.'</td>';
-                                break;
-                            }
-                        }
-                    }
+                    $output .= '<td class="border px-2 py-2">'.$visit->customer.'</td>';
+                    $output .= '<td class="border px-2 py-2">'.$visit->car_name.'</td>';
 
                     $output .='
-                        <td class="border px-2 py-2">'.$visit->model->model.'</td>
+                        <td class="border px-2 py-2">'.$visit->model.'</td>
                         <td class="border px-2 py-2">'.$visit->reason.'</td>
-                        <td class="border px-2 py-2">'.$visit->user->fname.'</td>
+                        <td class="border px-2 py-2">'.$visit->mechanic.'</td>
+                        <td class="border px-2 py-2">'.$visit->created_at.'</td>
                         <td class="border px-2 py-2"><a href="'.route('visit.edit', ['id' => $visit->id]).'"
                         class="text-blue-400 underline">'. _('Edit').'</a></td>
                     ';
