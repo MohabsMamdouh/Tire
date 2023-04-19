@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User(); // Let's see
+        $user = new User();
         $user->fname = "super admin";
         $user->username = "super_admin";
         $user->email = "super_admin@info.com";
@@ -29,6 +29,9 @@ class UserSeeder extends Seeder
 
         User::factory()
             ->count(5)
+            ->mechanic()
             ->create();
+
+        User::factory()->count(1)->admin()->create();
     }
 }
