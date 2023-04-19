@@ -28,7 +28,7 @@ class UserFactory extends Factory
     public function configure()
     {
         return $this->afterMaking(function (User $user) {
-            return $user->assignRole('user');
+            return $user->assignRole('mechanic');
         });
     }
 
