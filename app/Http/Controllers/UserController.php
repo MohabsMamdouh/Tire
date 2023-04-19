@@ -98,7 +98,7 @@ class UserController extends Controller
 
     public function showAll()
     {
-        $users = User::with('visits', 'feedbacks')->get();
+        $users = User::with('visits')->get();
 
         $data = [
             'users' => $users,
@@ -154,6 +154,13 @@ class UserController extends Controller
     {
         $user = User::with('visits', 'roles')->find($id);
 
+        $feedbacks = DB::table('feedback')
+            ->join('visits', 'feedback.visit_id', '=', 'visits.id')
+            ->join('users', 'visits.user_id', '=', 'users.id')
+            ->select(
+                'feedback.*')
+            ->where('users.id', $id)->get();
+
         $customers = Customer::with('models')->get();
 
         $cars = Car::with('models')->get();
@@ -162,6 +169,7 @@ class UserController extends Controller
             'user' => $user,
             'customers' => $customers,
             'cars' => $cars,
+            'feedbacks' => count($feedbacks),
             'title' => 'Show Mechanic'
         ];
 

@@ -87,7 +87,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = Customer::with('visits')->find($id);
+        $customer = Customer::with('visits', 'feedbacks')->find($id);
 
         $carData = (new CustomerCarInfoController)->getCustomerCarsinfo($id);
 

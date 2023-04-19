@@ -7,8 +7,8 @@
                 <p class="text-gray-400 dark:text-gray-300">{{ __('Visits') }}</p>
             </div>
             <div>
-                <p class="font-bold text-gray-700 dark:text-gray-100 text-xl">0</p>
-                <p class="text-gray-400 dark:text-gray-300">{{ __('Feedback') }}</p>
+                <p class="font-bold text-gray-700 dark:text-gray-100 text-xl">{{ $feedbacks }}</p>
+                <p class="text-gray-400 dark:text-gray-300">{{ __('Feedbacks') }}</p>
             </div>
         </div>
         <div class="relative">
