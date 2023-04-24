@@ -40,7 +40,7 @@ class CustomerFactory extends Factory
     private function assignRole(...$roles): CustomerFactory
     {
         return $this->afterCreating(function (Customer $customer) use ($roles) {
-            return $user->syncRoles($roles);
+            return $customer->syncRoles($roles);
         });
     }
 

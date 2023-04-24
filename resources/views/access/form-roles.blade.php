@@ -4,7 +4,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{-- {{ Route::currentRouteName() == 'user.edit' ? __('Update User') : __('Create New User') }} --}}
-            {{ __('Assign Permissions to') }} <b class="uppercase">{{ $role->name }}</b>
+            {{ __('Grant ') }} <b class="uppercase">{{ $role->name }}</b> {{ __('permissions') }}
         </h2>
     </x-slot>
 

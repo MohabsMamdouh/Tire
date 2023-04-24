@@ -158,7 +158,7 @@ class AccessController extends Controller
             $user->removeRole($role->name);
         }
 
-        $user->assignRole('user');
+        $user->assignRole('mechanic');
 
         return redirect(route('user.ShowSingle', ['id' => $user->id]));
 
