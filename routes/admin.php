@@ -118,6 +118,8 @@ Route::middleware(['auth', 'verified'])->group(function ()
 
         Route::get('/{id}/delete', 'destroy')->name('destroy')->middleware('can:delete customer'); // Done
 
+        Route::get('/{customer}/get-info', 'getCustomerInfo')->middleware('can:show customer')->name('getCustomerInfo');
+
     });
 
     // Cars Section
@@ -136,7 +138,7 @@ Route::middleware(['auth', 'verified'])->group(function ()
     });
 
 
-    // Cars Section
+    // Custom Cars Section
     Route::controller(App\Http\Controllers\CustomerCarInfoController::class)->name('car.')->prefix('cars')->group(function ()
     {
         Route::get('/car/customer', 'getCustomerCar')->name('getCustomerCar');
@@ -191,6 +193,14 @@ Route::middleware(['auth', 'verified'])->group(function ()
 
         Route::get('/{feedback}/delete', 'destroy')->name('destroy')->middleware('can:delete feedback'); // Done
 
+    });
+
+    // Messages Section
+    Route::controller(App\Http\Controllers\ChatController::class)->name('chats.')->prefix('chats')->group(function ()
+    {
+        Route::get('/', 'index')->name('messages');
+        Route::get('/store/msg/{user}/{customer}', 'store')->name('store.msg');
+        Route::get('/get/msg/{user}/{customer}', 'getLiveMessages')->name('get.msg');
     });
 
 });

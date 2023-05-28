@@ -62,6 +62,20 @@ Route::middleware('customer')->group(function ()
     {
         Route::get('/', 'index')->name('showMechanicsNearMe');
         Route::any('mechanics-near-me', 'show')->name('mechanicsNearMe');
+        Route::get('last-location/{lat}/{long}', 'saveLastLocationCustomer')->name('saveLastLocationCustomer');
+    });
+
+    Route::controller(App\Http\Controllers\Customer\UserConttroller::class)->prefix('user')->name('user.')->group(function ()
+    {
+        Route::get('/{user}/get-info', 'getUserInfo')->name('getUserInfo');
+    });
+
+
+    Route::controller(App\Http\Controllers\Customer\ChatCustomerController::class)->prefix('chat')->name('chat.')->group(function ()
+    {
+        Route::get('/{user}/', 'index')->name('msg');
+        Route::get('/store/msg/{user}/{customer}', 'store')->name('store.msg');
+        Route::get('/get/msg/{user}/{customer}', 'getLiveMessages')->name('get.msg');
     });
 
 

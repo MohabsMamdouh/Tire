@@ -16,6 +16,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Fixing'),
+    'BingMapsKey' => 'AovJB1mXln48ICpyMOnEUd_4C3Aibgoqi4OnssE1Mpxclzpn4SoqeQnBbYjZTlqR',
 
     /*
     |--------------------------------------------------------------------------

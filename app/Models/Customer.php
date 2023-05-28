@@ -81,4 +81,19 @@ class Customer extends Authenticatable
     {
         return $this->hasMany(Feedback::class);
     }
+
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class, 'user_customer_chat');
+    }
+
+    /**
+     * Get the location associated with the Customer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function location()
+    {
+        return $this->hasOne(LastLocation::class);
+    }
 }
