@@ -195,7 +195,7 @@ Route::middleware(['auth', 'verified'])->group(function ()
 
     });
 
-    // Messages Section
+    // Chats Section
     Route::controller(App\Http\Controllers\ChatController::class)->name('chats.')->prefix('chats')->group(function ()
     {
         Route::get('/', 'index')->name('messages');

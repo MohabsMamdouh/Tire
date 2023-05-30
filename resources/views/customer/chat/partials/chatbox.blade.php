@@ -25,7 +25,7 @@
         <!-- end chat list -->
 
         <!-- message -->
-        <div class="w-1/2 px-5 flex flex-col justify-between h-screen">
+        <div class="w-3/4 px-5 flex flex-col justify-between h-screen">
             <div id="messagesShow" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"></div>
 
             <div class="controller hidden">
@@ -46,7 +46,7 @@
         </div>
         <!-- end message -->
 
-        <div id="UserInfo" class="w-1/3 border-l-2 dark:border-gray-400 px-5">
+        <div id="UserInfo" class="w-1/4 border-l-2 dark:border-gray-400 px-5">
         </div>
     </div>
 </div>
@@ -58,8 +58,17 @@
    $(document).ready(function () {
        $('#send').click(function (e) {
            e.preventDefault();
+           send();
+       });
 
-           $.ajax({
+       $('input').on('keydown', function(event) {
+            if (event.key === 'Enter') {
+                send();
+            }
+        });
+
+        function send(cid) {
+            $.ajax({
                type: "get",
                url: "{{ route('customer.chat.store.msg',['user' => $mechanic, 'customer' => Auth::guard('customer')->user()]) }}",
                data: {
@@ -77,7 +86,7 @@
                    alert(" Can't do because: " + error);
                }
            });
-       });
+        }
 
        getMessages();
 

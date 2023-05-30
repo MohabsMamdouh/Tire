@@ -19,6 +19,13 @@
                 send(cid);
             });
 
+            $('input').on('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    var cid = $('#customer_id').val();
+                    send(cid);
+                }
+            });
+
             function send(cid) {
                 $.ajax({
                     type: "get",

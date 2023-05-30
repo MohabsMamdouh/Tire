@@ -190,6 +190,7 @@ class CustomerController extends Controller
                 width="200" height="150"
                 style="border:0;" loading="lazy">
             </iframe>
+            <div>'.$customer->location->address.' <a href="https://www.google.com/maps/search/?api=1&query='.$customer->location->latitude.','.$customer->location->longitude.'"><i class="fa-solid fa-map"></i></a></div>
         </div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->created_at.'</div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->phone.'</div>';
