@@ -5,7 +5,7 @@
     <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?key='{{ config('app.BingMapsKey') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#userList-item').on('click', function() {
+            $('.userList-item').on('click', function() {
                 var cidValue = $(this).find('#cid').val();
                 getMessages(cidValue);
                 customerInfo(cidValue);

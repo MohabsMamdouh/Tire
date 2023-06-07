@@ -203,4 +203,17 @@ Route::middleware(['auth', 'verified'])->group(function ()
         Route::get('/get/msg/{user}/{customer}', 'getLiveMessages')->name('get.msg');
     });
 
+    // Picks Section
+    Route::controller(App\Http\Controllers\PickRequestController::class)->name('picks.')->prefix('picks')->group(function ()
+    {
+        Route::get('/', 'getNotification')->name('getNew');
+        Route::get('/{status}/{pickRequest}', 'update')->name('update');
+
+        Route::get('get-picks/{customer}/{pickRequest}', 'approve')->name('approve');
+
+        Route::get('/pciks/done/{pickRequest}', 'done')->name('done');
+    });
+
+
+
 });

@@ -87,4 +87,14 @@ class User extends Authenticatable
         return $this->belongsToMany(Chat::class, 'user_customer_chat');
     }
 
+    /**
+     * Get all of the Requests for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function Requests()
+    {
+        return $this->hasMany(PickRequest::class);
+    }
+
 }

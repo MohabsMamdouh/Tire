@@ -45,6 +45,25 @@ class ChatCustomerController extends Controller
         return view('customer.chat.chat', $data);
     }
 
+    public function getAllMessages()
+    {
+        $users = User::with('chats', 'chats.customers')->whereHas('chats', function ($query) {
+            $query->whereHas('customers', function ($query) {
+                $query->where('customers.id', Auth::guard("customer")->user()->id);
+            });
+        })->get();
+
+
+        // dd($customers);
+
+        $data = [
+            'title' => 'Chat',
+            'users' => $users,
+        ];
+
+        return view('customer.chat.All-chats', $data);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -73,6 +92,12 @@ class ChatCustomerController extends Controller
     public function getLiveMessages(User $user, Customer $customer)
     {
         $output = $this->LoadMessages($user, $customer, 'customer');
+
+        $output .= '<input type="hidden" id="user_id" value="'.$user->id.'">';
+
+        $output .= '<script>
+            getMessages('.$user->id.');
+        </script>';
 
         return $output;
     }

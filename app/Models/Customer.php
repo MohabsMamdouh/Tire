@@ -96,4 +96,14 @@ class Customer extends Authenticatable
     {
         return $this->hasOne(LastLocation::class);
     }
+
+    /**
+     * Get all of the Requests for the Customer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function Requests()
+    {
+        return $this->hasMany(PickRequest::class);
+    }
 }

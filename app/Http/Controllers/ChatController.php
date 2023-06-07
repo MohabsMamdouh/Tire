@@ -55,6 +55,11 @@ class ChatController extends Controller
         return $output;
     }
 
+    public function FunctionName(Type $var = null)
+    {
+        # code...
+    }
+
     /**
      * Show the form for creating a new resource.
      *

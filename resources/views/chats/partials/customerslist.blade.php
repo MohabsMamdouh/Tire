@@ -1,5 +1,5 @@
 @foreach ($customers as $customer)
-    <div id="userList-item" class="flex flex-row py-4 px-2 justify-center cursor-pointer hover:bg-gray- items-center border-b-2 dark:border-gray-400">
+    <div class="userList-item flex flex-row py-4 px-2 justify-center cursor-pointer hover:bg-gray- items-center border-b-2 dark:border-gray-400">
         <div class="w-50 dark:text-white border border-gray-300 rounded-full mx-auto bg-gray-700 text-center p-2">
              <i class="fas fa-user"></i>
         </div>

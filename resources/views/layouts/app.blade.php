@@ -28,6 +28,15 @@
 
             @include('layouts.sidebar')
 
+            <section id="notifcation" class="hidden">
+                {{-- <div class="fixed top-5 right-5 z-50 bg-blue-500 p-4 rounded hidden">
+                    <p class="text-white font-bold">New notification!</p>
+                    <button class="bg-white text-blue-500 px-4 py-2 rounded">View</button>
+                </div> --}}
+            </section>
+
+
+
             <div class="switcher" style="position: fixed;bottom: 0px; left: 20px">
                 <div class="flex items-end mb-4">
                     <img src="{{ asset('storage/icon-moon.svg') }}" width="30px" class="moon cursor-pointer"
@@ -58,6 +67,22 @@
     {{-- <script src="{{ URL::asset('js/plugins/chartjs.min.js') }}"></script>
     <script src="{{ URL::asset('js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ URL::asset('js/argon-dashboard-tailwind.js?v=1.0.1') }}"></script> --}}
+
+    <script>
+        $(document).ready(function () {
+            setInterval(function(){
+                getNotification();
+            }, 5000);
+
+            function getNotification() {
+                $("#notifcation").load("{{ route('picks.getNew') }}",  function (response, status, request) {
+                    console.log(response);
+                    $(this).removeClass("hidden");
+
+                });
+            }
+        });
+    </script>
 
 </body>
 

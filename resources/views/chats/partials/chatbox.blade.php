@@ -7,19 +7,19 @@
         <div class="flex flex-col w-2/5 border-r-2 dark:border-gray-400 overflow-y-auto">
 
             <!-- search compt -->
-            <div class="border-b-2 dark:border-gray-400 py-4 px-2">
+            {{-- <div class="border-b-2 dark:border-gray-400 py-4 px-2">
                 <input
                 type="text"
                 placeholder="search chatting"
                 class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
                 />
-            </div>
+            </div> --}}
             <!-- end search compt -->
 
             <!-- user list -->
             <div id="userList">
                 <div class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-                    @include('chats.partials.userlist')
+                    @include('chats.partials.customerslist')
                 </div>
             </div>
             <!-- end user list -->

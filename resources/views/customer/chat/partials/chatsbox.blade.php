@@ -4,24 +4,24 @@
     <!-- Chatting -->
     <div class="flex flex-row justify-between">
         <!-- chat list -->
-        {{-- <div class="flex flex-col w-2/5 border-r-2 dark:border-gray-400 overflow-y-auto">
+        <div class="flex flex-col w-2/5 border-r-2 dark:border-gray-400 overflow-y-auto">
 
             <!-- search compt -->
-            <div class="border-b-2 dark:border-gray-400 py-4 px-2">
+            {{-- <div class="border-b-2 dark:border-gray-400 py-4 px-2">
                 <input
                 type="text"
                 placeholder="search chatting"
                 class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
                 />
-            </div>
+            </div> --}}
             <!-- end search compt -->
 
             <!-- user list -->
             <div id="userList">
-                @include('chats.partials.userlist')
+                @include('customer.chat.partials.userslist')
             </div>
             <!-- end user list -->
-        </div> --}}
+        </div>
         <!-- end chat list -->
 
         <!-- message -->
@@ -48,78 +48,73 @@
 
         <div id="UserInfo" class="w-1/4 border-l-2 dark:border-gray-400 px-5">
         </div>
+
     </div>
 </div>
 
- <script>
-    const el = document.getElementById('messagesShow')
-    el.scrollTop = el.scrollHeight
+<script>
 
    $(document).ready(function () {
-       $('#send').click(function (e) {
-           e.preventDefault();
-           send();
-       });
 
-       $('input').on('keydown', function(event) {
-            if (event.key === 'Enter') {
-                send();
-            }
-        });
-
-        function send(cid) {
-            $.ajax({
-               type: "get",
-               url: "{{ route('customer.chat.store.msg',['user' => $mechanic, 'customer' => Auth::guard('customer')->user()]) }}",
-               data: {
-                   msg: $('#msg').val(),
-                   sender: 'customer',
-               },
-               success: function (response) {
-                   // console.log(response);
-                   getMessages();
-                   $('#msg').val('');
-               },
-               error: function (request, error) {
-                   console.log(arguments);
-                   $('#msg').val('');
-                   alert(" Can't do because: " + error);
-               }
-           });
+        function getMessages(user) {
+            $('#messagesShow').load(
+                "{{ route('customer.chat.get.msg',['user' => ':user', 'customer' => Auth::guard('customer')->user()->id]) }}".replace(':user', user),
+                function (response, status, request) {
+                    $('#messagesShow').html(response);
+                    $('#messagesShow').scrollTop($('#messagesShow')[0].scrollHeight);
+            });
+            $('.controller').removeClass('hidden');
+            userInfo(user);
         }
 
-       getMessages();
-
-       setInterval(function(){
-           getMessages();
-           checkStatus();
-
-       }, 5000);
-
-       function getMessages() {
-           $('#messagesShow').load(
-              "{{ route('customer.chat.get.msg',['user' => $mechanic, 'customer' => Auth::guard('customer')->user()]) }}",
-              function (response, status, request) {
-                 $('#messagesShow').html(response);
-                 $('#messagesShow').scrollTop($('#messagesShow')[0].scrollHeight);
-           });
-           $('.controller').removeClass('hidden');
-           userInfo('{{ $mechanic->id }}');
-       }
-
-       function checkStatus() {
-            $('#pickMe').load(
-                "{{ route('customer.pick.checkStatus',['user' => $mechanic->id, 'customer' => Auth::guard('customer')->user()->id]) }}",
-                function (response, status, request) {
-            });
-       }
-
-       function userInfo(user) {
+        function userInfo(user) {
             $('#UserInfo').load(
                 "{{ route('customer.user.getUserInfo',['user' => ':user']) }}".replace(':user', user),
                 function (response, status, request) {
                     $('#UserInfo').html(response);
             });
         }
+
+        function send(cid) {
+            $.ajax({
+                type: "get",
+                url: "{{ route('customer.chat.store.msg',['user' => ':cid', 'customer' => Auth::guard('customer')->user()]) }}".replace(':cid', cid),
+                data: {
+                    msg: $('#msg').val(),
+                    sender: 'customer',
+                },
+                success: function (response) {
+                    getMessages(cid);
+                    $('#msg').val('');
+                },
+                error: function (request, error) {
+                    console.log(arguments);
+                    $('#msg').val('');
+                    alert(" Can't do because: " + error);
+                }
+            });
+        }
+
+        $('.userList-item').on('click', function() {
+            var cidValue = $(this).find('#cid').val();
+            getMessages(cidValue);
+            customerInfo(cidValue);
+            $('.controller').removeClass('hidden');
+        });
+
+
+
+
+
+        $('#send').click(function (e) {
+            e.preventDefault();
+            send($('#user_id').val());
+        });
+
+        $('input').on('keydown', function(event) {
+            if (event.key === 'Enter') {
+                send($('#user_id').val());
+            }
+        });
    });
 </script>

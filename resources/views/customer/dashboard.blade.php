@@ -16,12 +16,11 @@
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex flex-wrap -mx-3">
                     @php
-                        $arr = [['Cars', $countCars, 'fa-solid fa-car', 'from-blue-500 to-violet-500'], ['Mechanics', $countMechanic, 'fa-solid fa-clipboard-user', 'from-red-600 to-orange-600'], ['Visits', $countVisits, 'fa-sharp fa-solid fa-eye', 'from-emerald-500 to-teal-400'], ['Feedbacks', $countFeeds, 'fa-solid fa-face-smile', 'from-orange-500 to-yellow-500']];
-                        
+                        $arr = [['Cars', $countCars, 'fa-solid fa-car', 'from-blue-500 to-violet-500'], ['Mechanics', $countMechanic, 'fa-solid fa-clipboard-user', 'from-red-600 to-orange-600'], ['Feedbacks', $countFeeds, 'fa-solid fa-face-smile', 'from-orange-500 to-yellow-500']];
                     @endphp
                     <!-- cards -->
                     @foreach ($arr as $card)
-                        <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
+                        <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/3">
                             <div
                                 class="relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-700 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
                                 <div class="flex-auto p-4">

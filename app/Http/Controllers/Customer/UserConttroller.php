@@ -4,6 +4,7 @@ namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 
@@ -22,7 +23,7 @@ class UserConttroller extends Controller
                 width="200" height="150"
                 style="border:0;" loading="lazy">
             </iframe>
-            <div>'.$user->addresses[0]->address_address.' <a href="https://www.google.com/maps/search/?api=1&query='.$user->addresses[0]->address_latitude.','.$user->addresses[0]->address_longitude.'"><i class="fa-solid fa-map"></i></a></div>
+            <div>'.$user->addresses[0]->address_address.' <a target="_blank" href="https://www.google.com/maps/search/?api=1&query='.$user->addresses[0]->address_latitude.','.$user->addresses[0]->address_longitude.'"><i class="fa-solid fa-map"></i></a></div>
 
         </div>';
 
@@ -30,7 +31,20 @@ class UserConttroller extends Controller
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$user->created_at.'</div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$user->phone.'</div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$user->email.'</div>';
+        $result .= '<div class="flex flex-col dark:text-gray-200"><button id="pickMe" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Pcik Me</button></div>';
         $result .= '</div>';
+
+
+
+        $result .= '<script>
+        $("#pickMe").on("click", function() {
+            console.log("xxx");
+            console.log("'.Auth::guard('customer')->user()->customer_fname.'");
+            $("#pickMe").load("'.route('customer.pick.store', ['user' => $user->id, 'customer' => Auth::guard('customer')->user()->id]).'","data", function (response, status, request) {
+                // console.log(response);
+            });
+        });
+        </script>';
 
         return $result;
     }
