@@ -5,7 +5,7 @@
         <!-- Name -->
         <div>
             <x-input-label for="customer_fname" :value="__('Name')" />
-            <x-text-input id="customer_fname" class="block mt-1 w-full" type="text" name="customer_fname"
+            <x-text-input id="customer_fname" class="block mt-1 w-full text-black" type="text" name="customer_fname"
                 :value="old('customer_fname')" required autofocus />
             <x-input-error :messages="$errors->get('customer_fname')" class="mt-2" />
             @error('customer_phone')
@@ -18,7 +18,7 @@
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+            <x-text-input id="email" class="block mt-1 w-full text-black" type="email" name="email" :value="old('email')"
                 required />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
             @error('email')
@@ -31,7 +31,7 @@
         <!-- Address -->
         <div class="mt-4">
             <x-input-label for="customer_address" :value="__('Address')" />
-            <x-text-input id="customer_address" class="block mt-1 w-full" type="text" name="customer_address"
+            <x-text-input id="customer_address" class="block mt-1 w-full text-black" type="text" name="customer_address"
                 :value="old('customer_address')" required autofocus />
             <x-input-error :messages="$errors->get('customer_address')" class="mt-2" />
         </div>
@@ -39,7 +39,7 @@
         <!-- Phone -->
         <div class="mt-4">
             <x-input-label for="customer_phone" :value="__('Phone')" />
-            <x-text-input id="customer_phone" class="block mt-1 w-full" type="text" name="customer_phone"
+            <x-text-input id="customer_phone" class="block mt-1 w-full text-black" type="text" name="customer_phone"
                 :value="old('customer_phone')" required autofocus />
             <x-input-error :messages="$errors->get('customer_phone')" class="mt-2" />
         </div>
@@ -48,7 +48,7 @@
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
+            <x-text-input id="password" class="block mt-1 w-full text-black" type="password" name="password" required
                 autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -58,7 +58,7 @@
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
+            <x-text-input id="password_confirmation" class="block mt-1 w-full text-black" type="password"
                 name="password_confirmation" required />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />

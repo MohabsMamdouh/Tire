@@ -47,11 +47,7 @@ class ChatCustomerController extends Controller
 
     public function getAllMessages()
     {
-        $users = User::with('chats', 'chats.customers')->whereHas('chats', function ($query) {
-            $query->whereHas('customers', function ($query) {
-                $query->where('customers.id', Auth::guard("customer")->user()->id);
-            });
-        })->get();
+        $users = User::with('chats', 'chats.customers')->get();
 
 
         // dd($customers);

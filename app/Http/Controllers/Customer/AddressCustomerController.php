@@ -49,7 +49,7 @@ class AddressCustomerController extends Controller
         foreach ($results as $res) {
             $user = User::find($res[0]->id);
             $user->visits;
-            $html .= '<a href="'.route('customer.chat.msg', ['user' => $res[0]->id]).'">';
+            $html .= '<a href="'.route('customer.pick.pick', ['user' => $res[0]->id]).'">';
             $html .= '<div class="flex items-center shadow hover:bg-indigo-100 hover:shadow-lg hover:rounded transition duration-150 ease-in-out transform hover:scale-105 p-3 dark:bg-slate-200 cursor-pointer">';
             $html .= '<div class="text-l"><p class="text-gray-900 leading-none">';
             $html .= $res[0]->fname . ' [' . count($res[0]->visits) . ']</p>';

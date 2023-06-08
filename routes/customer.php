@@ -41,6 +41,7 @@ Route::middleware('customer')->group(function ()
 
         Route::get('/create/{visit}', 'create')->name('create');
         Route::post('/store/{visit}', 'store')->name('store');
+        Route::get('/delete/{feedback}', 'destroy')->name('destroy');
     });
 
     // Cars
@@ -84,7 +85,7 @@ Route::middleware('customer')->group(function ()
     {
         Route::get('store/{user}/{customer}', 'store')->name('store');
         Route::get('check/{user}/{customer}', 'checkStatus')->name('checkStatus');
-        // Route::get('update/{PickRequest}', 'update')->name('update');
+        Route::get('p/{user}/', 'index')->name('pick');
     });
 
 

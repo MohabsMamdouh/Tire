@@ -25,14 +25,7 @@ class ChatController extends Controller
      */
     public function index()
     {
-        $customers = Customer::with('chats', 'chats.users')->whereHas('chats', function ($query) {
-                            $query->whereHas('users', function ($query) {
-                                $query->where('users.id', Auth::user()->id);
-                            });
-                        })->get();
-
-
-        // dd($customers);
+        $customers = Customer::with('chats', 'chats.users')->get();
 
         $data = [
             'title' => 'Chat',

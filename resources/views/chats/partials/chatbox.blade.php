@@ -4,7 +4,7 @@
     <!-- Chatting -->
     <div class="flex flex-row justify-between">
         <!-- chat list -->
-        <div class="flex flex-col w-2/5 border-r-2 dark:border-gray-400 overflow-y-auto">
+        <div class="flex flex-col w-2/5 border-r-2 dark:border-gray-400 h-screen">
 
             <!-- search compt -->
             {{-- <div class="border-b-2 dark:border-gray-400 py-4 px-2">

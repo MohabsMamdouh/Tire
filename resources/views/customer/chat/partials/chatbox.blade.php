@@ -92,8 +92,6 @@
 
        setInterval(function(){
            getMessages();
-           checkStatus();
-
        }, 5000);
 
        function getMessages() {
@@ -107,12 +105,7 @@
            userInfo('{{ $mechanic->id }}');
        }
 
-       function checkStatus() {
-            $('#pickMe').load(
-                "{{ route('customer.pick.checkStatus',['user' => $mechanic->id, 'customer' => Auth::guard('customer')->user()->id]) }}",
-                function (response, status, request) {
-            });
-       }
+
 
        function userInfo(user) {
             $('#UserInfo').load(

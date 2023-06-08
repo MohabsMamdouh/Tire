@@ -7,11 +7,37 @@ use App\Http\Controllers\Controller;
 use App\Models\PickRequest;
 use App\Models\Customer;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreRequestRequest;
 use App\Http\Requests\UpdateRequestRequest;
 
 class PickRequestController extends Controller
 {
+
+    public function index(User $user)
+    {
+        $user->addresses;
+        // $user->feedbacks;
+
+        $feeds = DB::table('feedback')
+                ->join('customers', 'feedback.customer_id', '=', 'customers.id')
+                ->join('visits', 'visits.id', '=', 'feedback.visit_id')
+                ->join('users', 'visits.user_id', '=', 'users.id')
+                ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
+                ->join('cars', 'cars.id', '=', 'car_models.car_id')
+                ->select('feedback.id', 'feedback.created_at', 'customers.customer_fname as customer','feedback.message','cars.car_name', 'car_models.model','users.fname')
+                ->where('users.id', $user->id)
+                ->where('status', 1)
+                ->get();
+        $data = [
+            'user' => $user,
+            'title' => "Request",
+            'feeds' => $feeds
+        ];
+
+        return view('customer.picks.pick', $data);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -28,7 +54,7 @@ class PickRequestController extends Controller
         $PickRequest->user_id = $user->id;
         $PickRequest->save();
 
-        return "true";
+        return "Pending";
     }
 
     /**
@@ -59,7 +85,7 @@ class PickRequestController extends Controller
         if ($PickRequest != null) {
             return $PickRequest->status;
         } else {
-            return "Pick Me";
+            return "Pick Meee";
         }
     }
 }

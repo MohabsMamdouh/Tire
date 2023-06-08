@@ -4,7 +4,7 @@
     <!-- Chatting -->
     <div class="flex flex-row justify-between">
         <!-- chat list -->
-        <div class="flex flex-col w-2/5 border-r-2 dark:border-gray-400 overflow-y-auto">
+        <div class="flex flex-col w-2/5 border-r-2 dark:border-gray-400 h-screen">
 
             <!-- search compt -->
             {{-- <div class="border-b-2 dark:border-gray-400 py-4 px-2">
@@ -17,7 +17,7 @@
             <!-- end search compt -->
 
             <!-- user list -->
-            <div id="userList">
+            <div id="userList" class="overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
                 @include('customer.chat.partials.userslist')
             </div>
             <!-- end user list -->

@@ -56,4 +56,15 @@ class FeedbackController extends Controller
 
         return redirect()->route('customer.feeds.MyFeeds');
     }
+
+    public function destroy(Feedback $feedback)
+    {
+        if ($feedback->customer_id != Auth::guard('customer')->user()->id) {
+            return redirect(route('customer.dashboard'));
+        }
+
+        $feedback->delete();
+
+        return redirect(route('customer.dashboard'));
+    }
 }
