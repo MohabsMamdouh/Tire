@@ -21,7 +21,7 @@
                 autofocus />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-        {{-- {{ dd(Hash::make('M01090483647')) }} --}}
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
