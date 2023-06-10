@@ -23,6 +23,9 @@
                                         <h2 class="text-xl font-semibold mb-2">{{ $user->fname }}</h2>
                                         <div class="flex flex-start dark:text-gray-200">
                                             <button id="pickMe" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">{{ __('Pcik Me') }}</button>
+                                            <b><p id="status" class="text-sm uppercase text-gray-600 p-2 dark:text-gray-400"></p></b>
+                                            {{-- <div id="status">
+                                            </div> --}}
                                         </div>
                                         <p class="text-gray-600">
                                             <div>{{ $user->addresses[0]->address_address }} <a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ $user->addresses[0]->address_latitude }},{{ $user->addresses[0]->address_longitude }}"><i class="fa-solid fa-map"></i></a></div>
@@ -56,7 +59,9 @@
     <script>
         $(document).ready(function () {
             $("#pickMe").on("click", function() {
-                $("#pickMe").load("{{ route('customer.pick.store', ['user' => $user->id, 'customer' => Auth::guard('customer')->user()->id]) }}","data", function (response, status, request) {
+                $("#status").load("{{ route('customer.pick.store', ['user' => $user->id, 'customer' => Auth::guard('customer')->user()->id]) }}","data", function (response, status, request) {
+                    // $('#pickMe').css('');
+                    $('#pickMe').prop('disabled', true);
                     // console.log(response);
                 });
             });
@@ -64,7 +69,7 @@
 
 
             function checkStatus() {
-                $('#pickMe').load(
+                $('#status').load(
                     "{{ route('customer.pick.checkStatus',['user' => $user->id, 'customer' => Auth::guard('customer')->user()->id]) }}",
                     function (response, status, request) {
                 });

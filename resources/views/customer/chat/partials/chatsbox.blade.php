@@ -1,10 +1,10 @@
 <!-- component -->
 <!-- This is an example component -->
-<div class="container shadow-lg rounded-lg" style="width: 900px;">
+<div class="container shadow-lg rounded-lg">
     <!-- Chatting -->
     <div class="flex flex-row justify-between">
         <!-- chat list -->
-        <div class="flex flex-col w-2/5 border-r-2 dark:border-gray-400 h-screen">
+        <div class="flex flex-col w-1/4 border-r-2 dark:border-gray-400 h-screen">
 
             <!-- search compt -->
             {{-- <div class="border-b-2 dark:border-gray-400 py-4 px-2">
@@ -25,13 +25,13 @@
         <!-- end chat list -->
 
         <!-- message -->
-        <div class="w-3/4 px-5 flex flex-col justify-between h-screen">
-            <div id="messagesShow" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"></div>
-
-            <div class="controller hidden">
-                <div class="pt-5">
-                    <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" id="msg" type="text" placeholder="type your message here..."  />
-                </div>
+        <div class="flex flex-col h-screen w-1/2 p-3">
+            <div id="messagesShow" class="flex-grow flex-end space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+                <!-- Render messages here -->
+            </div>
+            <div class="mt-4 controller hidden">
+                <!-- Render input field here -->
+                <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" id="msg" type="text" placeholder="type your message here..."  />
                 <div class="w-full">
                     <button type="button" id="send" style="background: #3B82F6;"
                         class="inline-flex w-full items-center justify-center rounded-lg px-4 py-2 mt-1 mr-3 transition duration-500 ease-in-out text-white hover:bg-blue-400 dark:bg-blue-500 bg-blue-500 focus:outline-none">
@@ -42,7 +42,6 @@
                     </button>
                 </div>
             </div>
-
         </div>
         <!-- end message -->
 
@@ -101,8 +100,6 @@
             customerInfo(cidValue);
             $('.controller').removeClass('hidden');
         });
-
-
 
 
 

@@ -1,10 +1,10 @@
 <!-- component -->
 <!-- This is an example component -->
-<div class="container mx-auto shadow-lg rounded-lg">
+<div class="container shadow-lg rounded-lg">
     <!-- Chatting -->
     <div class="flex flex-row justify-between">
         <!-- chat list -->
-        <div class="flex flex-col w-2/5 border-r-2 dark:border-gray-400 h-screen">
+        <div class="flex flex-col w-1/4 border-r-2 dark:border-gray-400 h-screen">
 
             <!-- search compt -->
             {{-- <div class="border-b-2 dark:border-gray-400 py-4 px-2">
@@ -16,87 +16,105 @@
             </div> --}}
             <!-- end search compt -->
 
+
             <!-- user list -->
-            <div id="userList">
-                <div class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-                    @include('chats.partials.customerslist')
-                </div>
+            <div id="userList" class="overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+                @include('chats.partials.customerslist')
             </div>
+
             <!-- end user list -->
         </div>
         <!-- end chat list -->
 
         <!-- message -->
-        <div class="w-full px-5 flex flex-col justify-between h-screen" id="chat">
-                <div class="flex flex-col h-screen">
-                    <div class="flex-1 overflow-y-auto px-4 py-6" id="message-overflow">
-                      <div class="flex flex-col" id="messagesShow">
-                      </div>
-                    </div>
-                    <div class="controller hidden mt-2 mb-5">
-                        <div class="flex items-center">
-                            <input type="text" placeholder="Type your message here" id="msg"  class="flex-1 appearance-none border border-gray-300 rounded-lg py-2 px-4 mr-4 focus:outline-none focus:border-blue-500">
-                            <button type="submit" id="MessageSend" class="bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 px-4 focus:outline-none">Send</button>
-                        </div>
-                    </div>
+        <div class="flex flex-col h-screen w-1/2 p-3">
+            <div id="messagesShow" class="flex-grow flex-end space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+                <!-- Render messages here -->
+            </div>
+            <div class="mt-4 controller hidden">
+                <!-- Render input field here -->
+                <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" id="msg" type="text" placeholder="type your message here..."  />
+                <div class="w-full">
+                    <button type="button" id="send" style="background: #3B82F6;"
+                        class="inline-flex w-full items-center justify-center rounded-lg px-4 py-2 mt-1 mr-3 transition duration-500 ease-in-out text-white hover:bg-blue-400 dark:bg-blue-500 bg-blue-500 focus:outline-none">
+                            <span class="font-bold">Send</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 ml-2 transform rotate-90">
+                                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                            </svg>
+                    </button>
                 </div>
-
-
-
-            {{-- <div class="flex flex-col h-screen">
-                <div class="flex-1 overflow-y-auto px-4 py-6">
-                  <div class="flex flex-col">
-
-
-
-                    <div class="flex items-center justify-start mb-4">
-                      <div class="rounded-full bg-gray-300 h-8 w-8 flex items-center justify-center mr-4">
-                        <span class="font-bold text-sm"><i class="fas fa-user"></i></span>
-                      </div>
-                      <div class="bg-gray-200 rounded-lg p-3 mb-2 max-w-xs">
-                        <p>Hello, how can I help you today?</p>
-                      </div>
-                      <div class="flex flex-col ml-2">
-                        <span class="font-bold text-sm">Alice</span>
-                        <span class="text-xs text-gray-500">2:30 PM</span>
-                      </div>
-
-                    </div>
-
-
-
-
-
-                    <div class="flex items-center justify-end mb-4">
-
-
-                      <div class="flex flex-col ml-2">
-                        <span class="font-bold text-sm">You</span>
-                        <span class="text-xs text-gray-500">2:35 PM</span>
-                      </div>
-                      <div class="bg-blue-500 rounded-lg p-3 ml-4 max-w-xs">
-                        <p>Hi Alice, I'm having trouble with my account.</p>
-                      </div>
-                    </div>
-
-
-                  </div>
-                </div>
-                <form class="px-4 py-3">
-                  <div class="flex items-center">
-                    <input type="text" placeholder="Type your message here" class="flex-1 appearance-none border border-gray-300 rounded-lg py-2 px-4 mr-4 focus:outline-none focus:border-blue-500">
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 px-4 focus:outline-none">Send</button>
-                  </div>
-                </form>
-            </div> --}}
-
-
+            </div>
         </div>
         <!-- end message -->
 
-        <div id="CustomerInfo" class="w-2/5 border-l-2 dark:border-gray-400 px-5">
+
+
+        <div id="CustomerInfo" class="w-1/4 border-l-2 dark:border-gray-400 px-5">
         </div>
+
+
     </div>
+    <!-- end message -->
 </div>
 
 
+<script>
+    $(document).ready(function () {
+        function getMessages(customer) {
+            $('#messagesShow').load(
+                "{{ route('chats.get.msg',['user' => Auth::user(), 'customer' => ':customer']) }}".replace(':customer', customer),
+                function (response, status, request) {
+                    $('#messagesShow').html(response);
+                    $('#messagesShow').scrollTop($('#messagesShow')[0].scrollHeight);
+            });
+            $('.controller').removeClass('hidden');
+            customerInfo(customer);
+        };
+
+        function customerInfo(customer) {
+            $('#CustomerInfo').load(
+                "{{ route('customer.getCustomerInfo',['customer' => ':customer']) }}".replace(':customer', customer),
+                function (response, status, request) {
+                    $('#CustomerInfo').html(response);
+            });
+        }
+
+        function send(cid) {
+            $.ajax({
+                type: "get",
+                url: "{{ route('chats.store.msg',['user' => Auth::user()->id, 'customer' => ':cid']) }}".replace(':cid', cid),
+                data: {
+                    msg: $('#msg').val(),
+                    sender: 'mechanic',
+                },
+                success: function (response) {
+                    getMessages(cid);
+                    $('#msg').val('');
+                },
+                error: function (request, error) {
+                    console.log(arguments);
+                    $('#msg').val('');
+                    alert(" Can't do because: " + error);
+                }
+            });
+        }
+
+        $('.userList-item').on('click', function() {
+            var cidValue = $(this).find('.cid').val();
+            getMessages(cidValue);
+            customerInfo(cidValue);
+            $('.controller').removeClass('hidden');
+        });
+
+        $('#MessageSend').click(function (e) {
+            e.preventDefault();
+            send($('#customer_id').val());
+        });
+
+        $('input').on('keydown', function(event) {
+            if (event.key === 'Enter') {
+                send($('#customer_id').val());
+            }
+        });
+    });
+</script>

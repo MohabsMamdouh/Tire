@@ -5,7 +5,7 @@
         </div>
         <div class="w-full ml-2">
             {{-- <div class="hidden" id="cid">{{ $customer->id }}</div> --}}
-            <input type="hidden" id="cid" name="cid" value="{{ $customer->id }}">
+            <input type="hidden" class="cid" name="cid" value="{{ $customer->id }}">
             <div id="Cname" class="text-lg font-semibold dark:text-gray-300">{{ $customer->customer_fname }}</div>
         </div>
     </div>

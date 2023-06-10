@@ -61,6 +61,7 @@ trait ChatsTrait
 
         $headClose = '</div>';
 
+
         if (count($msgs) == 0) {
             return $result;
         }
@@ -71,7 +72,6 @@ trait ChatsTrait
             } else {
                 $result .= $head2 . $usr . 'YOU' . $usrTime . str_replace('-', ' ', date('F j, Y, g:i a', strtotime($msg->created_at))) . $usrend . $msgOpen2 . $msg->message . $msgClose . $headClose;
             }
-
         }
 
         return $result;

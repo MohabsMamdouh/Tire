@@ -34,13 +34,15 @@
 
                                         @foreach ($visits as $visit)
                                             <tr>
-                                                <td class="border px-2 py-2">{{ $visit->customer }}</td>
-                                                <td class="border px-2 py-2">{{ $visit->car_name }}</td>
-                                                <td class="border px-2 py-2">{{ $visit->model }}</td>
-                                                <td class="border px-2 py-2">{{ $visit->reason }}</td>
-                                                <td class="border px-2 py-2">{{ $visit->mechanic }}</td>
-                                                <td class="border px-2 py-2">{{ $visit->created_at }}</td>
-                                                <td class="border px-2 py-2">
+                                                <td class="border px-2 py-2 text-center">{{ $visit->customer }}</td>
+                                                <td class="border px-2 py-2 text-center">{{ $visit->car_name }}</td>
+                                                <td class="border px-2 py-2 text-center">{{ $visit->model }}</td>
+                                                <td class="border px-2 py-2 text-center">{{ $visit->reason }}</td>
+                                                <td class="border px-2 py-2 text-center">{{ $visit->mechanic }}</td>
+                                                <td class="border px-2 py-2 text-center">
+                                                    {{ str_replace('-', ' ', date('F j, Y, g:i A', strtotime($visit->created_at))) }}
+                                                </td>
+                                                <td class="border px-2 py-2 text-center">
                                                     <a href="{{ route('customer.feeds.create', ['visit' => $visit->id]) }}"
                                                         class="text-blue-400 underline">{{ _('Add Feedback') }}</a>
                                                 </td>
