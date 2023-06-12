@@ -85,7 +85,7 @@ class PickRequestController extends Controller
         if ($PickRequest != null) {
             return $PickRequest->status;
         } else {
-            return "Pick Meee";
+            return " ";
         }
     }
 }

@@ -15,17 +15,12 @@
                     <div class="card">
                         <div class="bg-white rounded-lg shadow p-6">
                             <h2 class="text-xl font-semibold mb-2">{{ $customer->customer_fname }}</h2>
-                            <p class="text-gray-600">{{ $customer->location->address }} <a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ $customer->location->latitude }},{{ $customer->location->longitude }}"><i class="fa-solid fa-map"></i></a></p>
+                            <div class="text-gray-600"><a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ $customer->location->latitude }},{{ $customer->location->longitude }}">{{ $customer->location->address }} <i class="fa-solid fa-map"></i></a></div>
                             <a href="{{ route('picks.done', ['pickRequest' => $pickRequest->id]) }}" class="bg-blue-500 p-3 rounded text-white" type="submit">Done</a>
                         </div>
-                      </div>
-
-
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-
-    </script>
 </x-app-layout>

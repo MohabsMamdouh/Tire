@@ -62,28 +62,31 @@
                             </div>
                             <div class="flex-auto p-4">
                                 <div>
-                                    <table class="table-fixed dark:text-gray-200">
+                                    <table class="table-fixed w-full dark:text-gray-200">
                                         <thead class="dark:bg-slate-500">
-                                            <tr>
-                                                <th class="px-2 py-2">{{ __('Car') }}</th>
-                                                <th class="px-2 py-2">{{ __('Model') }}</th>
-                                                <th class="px-2 py-2">{{ __('Reason') }}</th>
-                                                <th class="px-2 py-2">{{ __('Mechanic') }}</th>
+                                            <tr class="flex">
+                                                <th class="w-1/5 px-2 py-2 text-center">{{ __('Car') }}</th>
+                                                <th class="w-2/5 px-2 py-2 text-center">{{ __('Model') }}</th>
+                                                <th class="w-1/5 px-2 py-2 text-center">{{ __('Reason') }}</th>
+                                                <th class="w-1/5 px-2 py-2 text-center">{{ __('Mechanic') }}</th>
+                                                <th class="w-1/5 px-2 py-2 text-center">{{ __('Feedback') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                             @foreach ($Visits as $visit)
-                                                <tr>
-                                                    <td class="border px-2 py-2">
+                                                <tr class="flex">
+                                                    <td class="w-1/5 border px-2 py-2 text-center">
                                                         {{ $visit->car_name }}
                                                     </td>
-                                                    <td class="border px-2 py-2">{{ $visit->model }}</td>
-                                                    <td class="border px-2 py-2">{{ $visit->reason }}</td>
-                                                    <td class="border px-2 py-2">{{ $visit->mechanic }}</td>
+                                                    <td class="w-2/5 border px-2 py-2 text-center">{{ $visit->model }}</td>
+                                                    <td class="w-1/5 border px-2 py-2 text-center">{{ $visit->reason }}</td>
+                                                    <td class="w-1/5 border px-2 py-2 text-center">{{ $visit->mechanic }}</td>
+                                                    <td class="w-1/5 border px-2 py-2 text-center">
+                                                        <a href="{{ route('customer.feeds.create', ['visit' => $visit->id]) }}"
+                                                            class="text-blue-400 underline">{{ _('Add Feedback') }}</a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
-
                                         </tbody>
                                     </table>
                                 </div>

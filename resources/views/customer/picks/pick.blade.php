@@ -27,9 +27,9 @@
                                             {{-- <div id="status">
                                             </div> --}}
                                         </div>
-                                        <p class="text-gray-600">
-                                            <div>{{ $user->addresses[0]->address_address }} <a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ $user->addresses[0]->address_latitude }},{{ $user->addresses[0]->address_longitude }}"><i class="fa-solid fa-map"></i></a></div>
-                                        </p>
+                                        <div class="text-gray-600">
+                                            <div><a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{ $user->addresses[0]->address_latitude }},{{ $user->addresses[0]->address_longitude }}">{{ $user->addresses[0]->address_address }} <i class="fa-solid fa-map"></i></a></div>
+                                        </div>
                                         <div class="font-semibold py-4 dark:text-gray-200">{{ $user->phone }}</div>
                                     </div>
                                 </div>
@@ -43,14 +43,9 @@
                                         </div>
                                     @endforeach
                                 </div>
-
-
-
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -65,8 +60,6 @@
                     // console.log(response);
                 });
             });
-
-
 
             function checkStatus() {
                 $('#status').load(

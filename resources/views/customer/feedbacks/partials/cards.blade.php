@@ -16,8 +16,13 @@
                     <div class="container pt-8 mx-auto" x-data="{ myForData: sourceData }">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
                             <a href="{{ route('customer.feeds.destroy', ['feedback' => $feed->id]) }}"
-                                class="bg-transparent flex justify-center hover:bg-red-500 dark:bg-red-500 dark:text-white text-red-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                                class="bg-transparent flex justify-center hover:bg-red-500 dark:bg-red-500 dark:text-white text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
                                 {{ __('Delete') }}
+                            </a>
+
+                            <a href="{{ route('customer.feeds.edit', ['feedback' => $feed->id]) }}"
+                                class="bg-transparent flex justify-center hover:bg-green-500 dark:bg-green-500 dark:text-white text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">
+                                {{ __('Update') }}
                             </a>
                         </div>
                     </div>

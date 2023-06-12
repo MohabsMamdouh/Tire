@@ -31,7 +31,7 @@ class DashboardController extends Controller
                 ->join('car_models', 'visits.car_model_id', '=', 'car_models.id')
                 ->join('cars', 'car_models.car_id', '=', 'cars.id')
                 ->join('users', 'visits.user_id', '=', 'users.id')
-                ->select('cars.car_name', 'car_models.model', 'visits.reason', 'users.fname as mechanic')
+                ->select('cars.car_name', 'car_models.model', 'visits.reason', 'users.fname as mechanic', 'visits.id')
                 ->where('customers.id', $cus_id)
                 ->take(5)->get();
         $feeds = DB::table('feedback')

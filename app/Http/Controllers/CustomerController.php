@@ -185,7 +185,7 @@ class CustomerController extends Controller
         $result .= $customer->customer_fname;
         $result .= '</div>';
 
-        $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->created_at.'</div>';
+        $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.__('Joined since: ').'</b>'.str_replace('-', ' ', date('F j, Y', strtotime($customer->created_at))).'</div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->phone.'</div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->email.'</div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->customer_address.'</div>';

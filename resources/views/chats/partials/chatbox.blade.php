@@ -7,13 +7,14 @@
         <div class="flex flex-col w-1/4 border-r-2 dark:border-gray-400 h-screen">
 
             <!-- search compt -->
-            {{-- <div class="border-b-2 dark:border-gray-400 py-4 px-2">
+            <div class="border-b-2 dark:border-gray-400 py-4 px-2">
                 <input
                 type="text"
-                placeholder="search chatting"
+                id="searchCustomer"
+                placeholder="Search Customers"
                 class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
                 />
-            </div> --}}
+            </div>
             <!-- end search compt -->
 
 
@@ -98,6 +99,12 @@
                 }
             });
         }
+
+        setInterval(function() {
+            if ($('#customer_id').val() != undefined) {
+                getMessages($('#customer_id').val());
+            }
+        }, 5000);
 
         $('.userList-item').on('click', function() {
             var cidValue = $(this).find('.cid').val();

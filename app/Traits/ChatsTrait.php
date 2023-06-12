@@ -68,9 +68,19 @@ trait ChatsTrait
 
         foreach ($msgs as $msg) {
             if ($msg->sender != $sender) {
-                $result .= $head1 . $icon . $msgOpen1 . $msg->message . $msgClose . $usr . $customer->customer_fname . $usrTime . str_replace('-', ' ', date('F j, Y, g:i a', strtotime($msg->created_at))) . $usrend . $headClose;
+                $result .= $head1 . $icon . $msgOpen1 . $msg->message . $msgClose . $usr;
+
+                if ($sender == "mechanic") {
+                    $result .= $customer->customer_fname;
+                } else {
+                    $result .= $user->fname;
+                }
+
+                $result .= $usrTime . str_replace('-', ' ', date('F j, Y, g:i A', strtotime($msg->created_at))) . $usrend . $headClose;
             } else {
-                $result .= $head2 . $usr . 'YOU' . $usrTime . str_replace('-', ' ', date('F j, Y, g:i a', strtotime($msg->created_at))) . $usrend . $msgOpen2 . $msg->message . $msgClose . $headClose;
+                $result .= $head2 . $usr . 'YOU';
+                $result .= $usrTime . str_replace('-', ' ', date('F j, Y, g:i A', strtotime($msg->created_at))) . $usrend;
+                $result .= $msgOpen2 . $msg->message . $msgClose . $headClose;
             }
         }
 

@@ -41,6 +41,10 @@ Route::middleware('customer')->group(function ()
 
         Route::get('/create/{visit}', 'create')->name('create');
         Route::post('/store/{visit}', 'store')->name('store');
+
+        Route::get('/edit/{feedback}', 'edit')->name('edit');
+        Route::post('/update/{feedback}', 'update')->name('update');
+
         Route::get('/delete/{feedback}', 'destroy')->name('destroy');
     });
 

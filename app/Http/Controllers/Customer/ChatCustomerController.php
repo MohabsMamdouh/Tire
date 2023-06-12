@@ -91,10 +91,6 @@ class ChatCustomerController extends Controller
 
         $output .= '<input type="hidden" id="user_id" value="'.$user->id.'">';
 
-        $output .= '<script>
-            getMessages('.$user->id.');
-        </script>';
-
         return $output;
     }
 

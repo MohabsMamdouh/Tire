@@ -53,7 +53,7 @@
 
 <script>
 
-   $(document).ready(function () {
+    $(document).ready(function () {
 
         function getMessages(user) {
             $('#messagesShow').load(
@@ -73,6 +73,7 @@
                     $('#UserInfo').html(response);
             });
         }
+
 
         function send(cid) {
             $.ajax({
@@ -94,13 +95,19 @@
             });
         }
 
-        $('.userList-item').on('click', function() {
+        $('.userList-item').click(function (e) {
+            e.preventDefault();
             var cidValue = $(this).find('#cid').val();
             getMessages(cidValue);
             customerInfo(cidValue);
             $('.controller').removeClass('hidden');
         });
 
+        setInterval(function() {
+            if ($('#user_id').val() != undefined) {
+                getMessages($('#user_id').val());
+            }
+        }, 5000);
 
 
         $('#send').click(function (e) {
@@ -113,5 +120,5 @@
                 send($('#user_id').val());
             }
         });
-   });
-</script>
+    });
+ </script>

@@ -60,33 +60,33 @@
                             </div>
                             <div class="flex-auto p-4">
                                 <div>
-                                    <table class="table-fixed dark:text-gray-200">
+                                    <table class="table-fixed w-full dark:text-gray-200">
                                         <thead class="dark:bg-slate-500">
-                                            <tr>
-                                                <th class="px-2 py-2">{{ __('Customer Name') }}</th>
-                                                <th class="px-2 py-2">{{ __('Car') }}</th>
-                                                <th class="px-2 py-2">{{ __('Model') }}</th>
-                                                <th class="px-2 py-2">{{ __('Reason') }}</th>
-                                                <th class="px-2 py-2">{{ __('Stuff Member') }}</th>
-                                                <th class="px-2 py-2">{{ __('Edit') }}</th>
+                                            <tr class="flex">
+                                                <th class="w-1/5 text-center px-2 py-2">{{ __('Customer Name') }}</th>
+                                                <th class="w-1/5 text-center px-2 py-2">{{ __('Car') }}</th>
+                                                <th class="w-2/5 text-center px-2 py-2">{{ __('Model') }}</th>
+                                                <th class="w-1/5 text-center px-2 py-2">{{ __('Reason') }}</th>
+                                                <th class="w-1/5 text-center px-2 py-2">{{ __('Mechanic') }}</th>
+                                                <th class="w-1/5 text-center px-2 py-2">{{ __('Edit') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
                                             @foreach ($visits as $visit)
-                                                <tr>
-                                                    <td class="border px-2 py-2">{{ $visit->customer }}</td>
-                                                    <td class="border px-2 py-2">{{ $visit->car_name }}</td>
-                                                    <td class="border px-2 py-2">{{ $visit->model }}</td>
-                                                    <td class="border px-2 py-2">{{ $visit->reason }}</td>
-                                                    <td class="border px-2 py-2">
+                                                <tr class="flex">
+                                                    <td class="w-1/5 text-center border px-2 py-2">{{ $visit->customer }}</td>
+                                                    <td class="w-1/5 text-center border px-2 py-2">{{ $visit->car_name }}</td>
+                                                    <td class="w-2/5 text-center border px-2 py-2">{{ $visit->model }}</td>
+                                                    <td class="w-1/5 text-center border px-2 py-2">{{ $visit->reason }}</td>
+                                                    <td class="w-1/5 text-center border px-2 py-2">
                                                         @if (Auth::user()->fname == $visit->mechanic)
                                                             {{ __('Me') }}
                                                         @else
                                                             {{ $visit->mechanic }}
                                                         @endif
                                                     </td>
-                                                    <td class="border px-2 py-2">
+                                                    <td class="w-1/5 text-center border px-2 py-2">
                                                         <a href="{{ route('visit.edit', ['id' => $visit->id]) }}"
                                                             class="text-blue-400 underline">{{ _('Edit') }}</a>
                                                     </td>

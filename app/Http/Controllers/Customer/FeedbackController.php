@@ -67,4 +67,22 @@ class FeedbackController extends Controller
 
         return redirect(route('customer.dashboard'));
     }
+
+    public function edit(Feedback $feedback)
+    {
+        $data = [
+            'title' => 'Edit Feedback',
+            'feedback' => $feedback,
+        ];
+
+        return view('customer.feedbacks.form', $data);
+    }
+
+    public function update(Request $request, Feedback $feedback)
+    {
+        $feedback->message = $request['message'];
+        $feedback->save();
+
+        return redirect(route('customer.feeds.MyFeeds'));;
+    }
 }

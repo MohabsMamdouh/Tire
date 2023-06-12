@@ -19,23 +19,14 @@ class UserConttroller extends Controller
         $result .= '</div>';
         if (isset($user->addresses[0])) {
             $result .= '<div id="map">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.940537254977!2d-122.43129768566308!3d37.77397297762194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085806c7d9e7d09%3A0x4a501367f076ad3a!2sGolden%20Gate%20Bridge!5e0!3m2!1sen!2sus!4v1622115157889!5m2!1sen!2sus&center='.$user->addresses[0]->address_latitude.','.$user->addresses[0]->address_longitude.'&zoom=12&maptype=satellite"
-                    width="200" height="150"
-                    style="border:0;" loading="lazy">
-                </iframe>
-                <div>'.$user->addresses[0]->address_address.' <a target="_blank" href="https://www.google.com/maps/search/?api=1&query='.$user->addresses[0]->address_latitude.','.$user->addresses[0]->address_longitude.'"><i class="fa-solid fa-map"></i></a></div>
-
+                <div><a target="_blank" href="https://www.google.com/maps/search/?api=1&query='.$user->addresses[0]->address_latitude.','.$user->addresses[0]->address_longitude.'">'.$user->addresses[0]->address_address.' <i class="fa-solid fa-map"></i></a></div>
             </div>';
         }
 
-        // dd($user->addresses);
-        $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$user->created_at.'</div>';
+        $result .= '<div class="font-semibold py-4 dark:text-gray-200"><b>'.__('Joined since: ').'</b>'.str_replace('-', ' ', date('F j, Y', strtotime($user->created_at))).'</div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$user->phone.'</div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$user->email.'</div>';
         $result .= '</div>';
-
-
 
         return $result;
     }
