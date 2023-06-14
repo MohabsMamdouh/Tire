@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateCustomerRequest;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+
 
 use App\Http\Controllers\CustomerCarInfoController;
 use App\Http\Controllers\VisitController;
@@ -187,12 +189,59 @@ class CustomerController extends Controller
 
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.__('Joined since: ').'</b>'.str_replace('-', ' ', date('F j, Y', strtotime($customer->created_at))).'</div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->phone.'</div>';
-        $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->email.'</div>';
+        $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.wordwrap($customer->email, 15, "<br>", true).'</div>';
         $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->customer_address.'</div>';
         $result .= '</div>';
 
 
         return $result;
+    }
+
+    public function searchChat(Request $request)
+    {
+        $output = '';
+        $q = $request->get('query');
+
+        if($q != '')
+        {
+            $data = Customer::where('customer_fname', 'like', '%'.$q.'%')->get();
+        } else {
+            $data = Customer::all();
+        }
+
+        $head = '<div class="userList-item-';
+        $c_head = ' flex flex-row py-4 px-2 justify-center cursor-pointer hover:bg-gray- items-center border-b-2 dark:border-gray-400">
+                    <div class="w-50 dark:text-white border border-gray-300 rounded-full mx-auto bg-gray-700 text-center p-2">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="w-full ml-2">';
+
+        $cid = '<input type="hidden" class="cid" name="cid" value="';
+
+        $cName = '"><div id="Cname" class="text-lg font-semibold dark:text-gray-300">';
+
+        $tail = '</div></div></div>';
+
+        if (count($data) > 0) {
+            foreach ($data as $customer) {
+                $output .= $head . $customer->id . $c_head . $cid . $customer->id . $cName . $customer->customer_fname . $tail;
+                $output .= "
+                    <script>
+                        $(document).ready(function () {
+
+                            $('.userList-item-".$customer->id."').on('click', function() {
+                                getMessages('".$customer->id."');
+                                customerInfo('".$customer->id."');
+                                $('.controller').removeClass('hidden');
+                            });
+                        });
+                    </script>";
+            }
+        } else {
+            $output .= $head . $c_head . $cid . $cName . "Not Found" . $tail;
+        }
+
+        return $output;
     }
 
     /**

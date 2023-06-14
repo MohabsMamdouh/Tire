@@ -4,13 +4,12 @@
     <!-- Chatting -->
     <div class="flex flex-row justify-between">
         <!-- chat list -->
-        <div class="flex flex-col w-1/4 border-r-2 dark:border-gray-400 h-screen">
+        <div class="flex flex-col w-1/5 border-r-2 dark:border-gray-400 h-screen">
 
             <!-- search compt -->
             <div class="border-b-2 dark:border-gray-400 py-4 px-2">
                 <input
-                type="text"
-                id="searchCustomer"
+                name="search" id="search" type="search"
                 placeholder="Search Customers"
                 class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
                 />
@@ -28,8 +27,8 @@
         <!-- end chat list -->
 
         <!-- message -->
-        <div class="flex flex-col h-screen w-1/2 p-3">
-            <div id="messagesShow" class="flex-grow flex-end space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+        <div class="flex flex-col h-screen w-3/5 mx-auto p-3">
+            <div id="messagesShow" class="flex-grow flex-end space-y-4 p-3 overflow-y-auto overflow-x-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
                 <!-- Render messages here -->
             </div>
             <div class="mt-4 controller hidden">
@@ -50,7 +49,7 @@
 
 
 
-        <div id="CustomerInfo" class="w-1/4 border-l-2 dark:border-gray-400 px-5">
+        <div id="CustomerInfo" class="w-1/5 border-l-2 dark:border-gray-400 px-5">
         </div>
 
 
@@ -61,44 +60,6 @@
 
 <script>
     $(document).ready(function () {
-        function getMessages(customer) {
-            $('#messagesShow').load(
-                "{{ route('chats.get.msg',['user' => Auth::user(), 'customer' => ':customer']) }}".replace(':customer', customer),
-                function (response, status, request) {
-                    $('#messagesShow').html(response);
-                    $('#messagesShow').scrollTop($('#messagesShow')[0].scrollHeight);
-            });
-            $('.controller').removeClass('hidden');
-            customerInfo(customer);
-        };
-
-        function customerInfo(customer) {
-            $('#CustomerInfo').load(
-                "{{ route('customer.getCustomerInfo',['customer' => ':customer']) }}".replace(':customer', customer),
-                function (response, status, request) {
-                    $('#CustomerInfo').html(response);
-            });
-        }
-
-        function send(cid) {
-            $.ajax({
-                type: "get",
-                url: "{{ route('chats.store.msg',['user' => Auth::user()->id, 'customer' => ':cid']) }}".replace(':cid', cid),
-                data: {
-                    msg: $('#msg').val(),
-                    sender: 'mechanic',
-                },
-                success: function (response) {
-                    getMessages(cid);
-                    $('#msg').val('');
-                },
-                error: function (request, error) {
-                    console.log(arguments);
-                    $('#msg').val('');
-                    alert(" Can't do because: " + error);
-                }
-            });
-        }
 
         setInterval(function() {
             if ($('#customer_id').val() != undefined) {
@@ -122,6 +83,11 @@
             if (event.key === 'Enter') {
                 send($('#customer_id').val());
             }
+        });
+
+        $(document).on('keyup', '#search', function() {
+            var query = $(this).val();
+            fetch_customers(query);
         });
     });
 </script>

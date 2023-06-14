@@ -73,6 +73,9 @@ Route::middleware('customer')->group(function ()
     Route::controller(App\Http\Controllers\Customer\UserConttroller::class)->prefix('user')->name('user.')->group(function ()
     {
         Route::get('/{user}/get-info', 'getUserInfo')->name('getUserInfo');
+
+        Route::get('/q/searchChat', 'searchChat')->name('searchChat');
+
     });
 
 

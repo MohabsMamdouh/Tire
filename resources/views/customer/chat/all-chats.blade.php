@@ -23,6 +23,66 @@
     }
 </style>
 
+{{-- <script>
+    $(document).ready(function () {
+        window.getMessages = function (user) {
+            $('#messagesShow').load(
+                "{{ route('customer.chat.get.msg',['user' => ':user', 'customer' => Auth::guard('customer')->user()->id]) }}".replace(':user', user),
+                function (response, status, request) {
+                    $('#messagesShow').html(response);
+                    $('#messagesShow').scrollTop($('#messagesShow')[0].scrollHeight);
+            });
+            $('.controller').removeClass('hidden');
+            userInfo(user);
+        }
+
+        window.userInfo = function (user) {
+            $('#UserInfo').load(
+                "{{ route('customer.user.getUserInfo',['user' => ':user']) }}".replace(':user', user),
+                function (response, status, request) {
+                    $('#UserInfo').html(response);
+            });
+        }
+
+
+        window.send = function (cid) {
+            $.ajax({
+                type: "get",
+                url: "{{ route('customer.chat.store.msg',['user' => ':cid', 'customer' => Auth::guard('customer')->user()]) }}".replace(':cid', cid),
+                data: {
+                    msg: $('#msg').val(),
+                    sender: 'customer',
+                },
+                success: function (response) {
+                    getMessages(cid);
+                    $('#msg').val('');
+                },
+                error: function (request, error) {
+                    console.log(arguments);
+                    $('#msg').val('');
+                    alert(" Can't do because: " + error);
+                }
+            });
+        }
+
+        window.fetch_customers = function (query = '') {
+                $.ajax({
+                    url: "{{ route('customer.user.searchChat') }}",
+                    method: 'GET',
+                    data: {
+                        query: query
+                    },
+                    success: function(data) {
+                        $('#userList').html(data);
+                    },
+                    error: function (request, error) {
+                        alert(" Can't do because: " + error);
+                    }
+                });
+            }
+    });
+</script> --}}
+
 
 @section('header')
     <header class="bg-white dark:bg-gray-800 shadow">

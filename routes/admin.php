@@ -114,6 +114,8 @@ Route::middleware(['auth', 'verified'])->group(function ()
             Route::post('/{id}/update-password/', 'resetPassword')->name('updatePassword');
         });
 
+        Route::get('/q/searchChat', 'searchChat')->name('searchChat');
+
         Route::get('/{id}/show-customer-visits', 'showMyVisits')->name('showMyVisits');
 
         Route::get('/{id}/delete', 'destroy')->name('destroy')->middleware('can:delete customer'); // Done

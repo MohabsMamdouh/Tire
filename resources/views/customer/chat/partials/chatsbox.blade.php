@@ -1,4 +1,63 @@
 <!-- component -->
+<script>
+    $(document).ready(function () {
+        window.getMessages = function (user) {
+            $('#messagesShow').load(
+                "{{ route('customer.chat.get.msg',['user' => ':user', 'customer' => Auth::guard('customer')->user()->id]) }}".replace(':user', user),
+                function (response, status, request) {
+                    $('#messagesShow').html(response);
+                    $('#messagesShow').scrollTop($('#messagesShow')[0].scrollHeight);
+            });
+            $('.controller').removeClass('hidden');
+            userInfo(user);
+        }
+
+        window.userInfo = function (user) {
+            $('#UserInfo').load(
+                "{{ route('customer.user.getUserInfo',['user' => ':user']) }}".replace(':user', user),
+                function (response, status, request) {
+                    $('#UserInfo').html(response);
+            });
+        }
+
+
+        window.send = function (cid) {
+            $.ajax({
+                type: "get",
+                url: "{{ route('customer.chat.store.msg',['user' => ':cid', 'customer' => Auth::guard('customer')->user()]) }}".replace(':cid', cid),
+                data: {
+                    msg: $('#msg').val(),
+                    sender: 'customer',
+                },
+                success: function (response) {
+                    getMessages(cid);
+                    $('#msg').val('');
+                },
+                error: function (request, error) {
+                    console.log(arguments);
+                    $('#msg').val('');
+                    alert(" Can't do because: " + error);
+                }
+            });
+        }
+
+        window.fetch_customers = function (query = '') {
+            $.ajax({
+                url: "{{ route('customer.user.searchChat') }}",
+                method: 'GET',
+                data: {
+                    query: query
+                },
+                success: function(data) {
+                    $('#userList').html(data);
+                },
+                error: function (request, error) {
+                    alert(" Can't do because: " + error);
+                }
+            });
+        }
+    });
+</script>
 <!-- This is an example component -->
 <div class="container shadow-lg rounded-lg">
     <!-- Chatting -->
@@ -7,13 +66,13 @@
         <div class="flex flex-col w-1/4 border-r-2 dark:border-gray-400 h-screen">
 
             <!-- search compt -->
-            {{-- <div class="border-b-2 dark:border-gray-400 py-4 px-2">
+            <div class="border-b-2 dark:border-gray-400 py-4 px-2">
                 <input
-                type="text"
-                placeholder="search chatting"
+                name="search" id="search" type="search"
+                placeholder="Search Customers"
                 class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
                 />
-            </div> --}}
+            </div>
             <!-- end search compt -->
 
             <!-- user list -->
@@ -55,51 +114,11 @@
 
     $(document).ready(function () {
 
-        function getMessages(user) {
-            $('#messagesShow').load(
-                "{{ route('customer.chat.get.msg',['user' => ':user', 'customer' => Auth::guard('customer')->user()->id]) }}".replace(':user', user),
-                function (response, status, request) {
-                    $('#messagesShow').html(response);
-                    $('#messagesShow').scrollTop($('#messagesShow')[0].scrollHeight);
-            });
-            $('.controller').removeClass('hidden');
-            userInfo(user);
-        }
-
-        function userInfo(user) {
-            $('#UserInfo').load(
-                "{{ route('customer.user.getUserInfo',['user' => ':user']) }}".replace(':user', user),
-                function (response, status, request) {
-                    $('#UserInfo').html(response);
-            });
-        }
-
-
-        function send(cid) {
-            $.ajax({
-                type: "get",
-                url: "{{ route('customer.chat.store.msg',['user' => ':cid', 'customer' => Auth::guard('customer')->user()]) }}".replace(':cid', cid),
-                data: {
-                    msg: $('#msg').val(),
-                    sender: 'customer',
-                },
-                success: function (response) {
-                    getMessages(cid);
-                    $('#msg').val('');
-                },
-                error: function (request, error) {
-                    console.log(arguments);
-                    $('#msg').val('');
-                    alert(" Can't do because: " + error);
-                }
-            });
-        }
-
         $('.userList-item').click(function (e) {
             e.preventDefault();
             var cidValue = $(this).find('#cid').val();
             getMessages(cidValue);
-            customerInfo(cidValue);
+            userInfo(cidValue);
             $('.controller').removeClass('hidden');
         });
 
@@ -119,6 +138,11 @@
             if (event.key === 'Enter') {
                 send($('#user_id').val());
             }
+        });
+
+        $(document).on('keyup', '#search', function() {
+            var query = $(this).val();
+            fetch_customers(query);
         });
     });
  </script>

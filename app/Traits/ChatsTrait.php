@@ -62,14 +62,14 @@ trait ChatsTrait
         $headClose = '</div>';
 
 
+
         if (count($msgs) == 0) {
             return $result;
         }
 
         foreach ($msgs as $msg) {
             if ($msg->sender != $sender) {
-                $result .= $head1 . $icon . $msgOpen1 . $msg->message . $msgClose . $usr;
-
+                $result .= $head1 . $icon . $msgOpen1 . wordwrap($msg->message, 20, "<br>", true) . $msgClose . $usr;
                 if ($sender == "mechanic") {
                     $result .= $customer->customer_fname;
                 } else {
@@ -80,7 +80,7 @@ trait ChatsTrait
             } else {
                 $result .= $head2 . $usr . 'YOU';
                 $result .= $usrTime . str_replace('-', ' ', date('F j, Y, g:i A', strtotime($msg->created_at))) . $usrend;
-                $result .= $msgOpen2 . $msg->message . $msgClose . $headClose;
+                $result .= $msgOpen2 . wordwrap($msg->message, 20, "<br>", true) . $msgClose . $headClose;
             }
         }
 
