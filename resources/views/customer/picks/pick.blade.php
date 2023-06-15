@@ -22,7 +22,7 @@
                                     <div class="bg-white dark:bg-transparent rounded-lg shadow p-6">
                                         <h2 class="text-xl font-semibold mb-2">{{ $user->fname }}</h2>
                                         <div class="flex flex-start dark:text-gray-200">
-                                            <button id="pickMe" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">{{ __('Pcik Me') }}</button>
+                                            <button id="pickMe" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">{{ __('Pick Me') }}</button>
                                             <b><p id="status" class="text-sm uppercase text-gray-600 p-2 dark:text-gray-400"></p></b>
                                             {{-- <div id="status">
                                             </div> --}}

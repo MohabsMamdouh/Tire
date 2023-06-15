@@ -29,7 +29,7 @@ class VisitController extends Controller
 
         $data = [
             'visits' => $visits,
-            'title' => 'My Visits',
+            'title' => 'Give a Feedback',
         ];
 
         return view('customer.visits.show', $data);
