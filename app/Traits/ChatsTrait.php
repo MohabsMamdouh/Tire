@@ -27,7 +27,7 @@ trait ChatsTrait
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function LoadMessages(User $user, Customer $customer, $sender)
+    public function LoadMessages(User $user, Customer $customer)
     {
         $msgs = DB::table('chats')
                 ->join('user_customer_chat', 'chats.id', '=', 'user_customer_chat.chat_id')
@@ -35,56 +35,11 @@ trait ChatsTrait
                 ->join('users', 'user_customer_chat.user_id', '=', 'users.id')
                 ->select(
                     'chats.*',
-                    'customers.*',
-                    'users.*',)
+                    'customers.customer_fname',
+                    'users.fname',)
                 ->where('customers.id', $customer->id)
                 ->where('users.id', $user->id)->get();
-
-        $result = "";
-
-        $head1 = '<div class="flex items-center justify-start mb-4">';
-
-        $head2 = '<div class="flex items-center justify-end mb-4">';
-
-        $icon = '<div class="rounded-full bg-gray-300 h-8 w-8 flex items-center justify-center mr-4">
-                    <span class="font-bold text-sm"><i class="fas fa-user"></i></span>
-                </div>';
-
-        $msgOpen1 = '<div class="bg-gray-200 rounded-lg p-3 mb-2 max-w-xs"><p>';
-        $msgClose = '</p></div>';
-
-        $msgOpen2 = '<div class="bg-blue-500 rounded-lg p-3 ml-4 max-w-xs text-white"><p>';
-
-        $usr = '<div class="flex flex-col ml-2"><span class="font-bold text-sm">';
-        $usrTime = '</span><span class="text-xs text-gray-500">';
-        $usrend = '</span></div>';
-
-        $headClose = '</div>';
-
-
-
-        if (count($msgs) == 0) {
-            return $result;
-        }
-
-        foreach ($msgs as $msg) {
-            if ($msg->sender != $sender) {
-                $result .= $head1 . $icon . $msgOpen1 . wordwrap($msg->message, 20, "<br>", true) . $msgClose . $usr;
-                if ($sender == "mechanic") {
-                    $result .= $customer->customer_fname;
-                } else {
-                    $result .= $user->fname;
-                }
-
-                $result .= $usrTime . str_replace('-', ' ', date('F j, Y, g:i A', strtotime($msg->created_at))) . $usrend . $headClose;
-            } else {
-                $result .= $head2 . $usr . 'YOU';
-                $result .= $usrTime . str_replace('-', ' ', date('F j, Y, g:i A', strtotime($msg->created_at))) . $usrend;
-                $result .= $msgOpen2 . wordwrap($msg->message, 20, "<br>", true) . $msgClose . $headClose;
-            }
-        }
-
-        return $result;
+        return $msgs;
     }
 
     /**

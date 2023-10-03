@@ -181,20 +181,22 @@ class CustomerController extends Controller
 
     public function getCustomerInfo(Customer $customer)
     {
-        $customer->location;
-        $result = '<div class="flex flex-col dark:text-gray-200">
-                        <div class="font-semibold text-xl py-4">';
-        $result .= $customer->customer_fname;
-        $result .= '</div>';
+        // $customer->location;
+        // $result = '<div class="flex flex-col dark:text-gray-200">
+        //                 <div class="font-semibold text-xl py-4">';
+        // $result .= $customer->customer_fname;
+        // $result .= '</div>';
 
-        $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.__('Joined since: ').'</b>'.str_replace('-', ' ', date('F j, Y', strtotime($customer->created_at))).'</div>';
-        $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->phone.'</div>';
-        $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.wordwrap($customer->email, 15, "<br>", true).'</div>';
-        $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->customer_address.'</div>';
-        $result .= '</div>';
+        // $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.__('Joined since: ').'</b>'.str_replace('-', ' ', date('F j, Y', strtotime($customer->created_at))).'</div>';
+        // $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->phone.'</div>';
+        // $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.wordwrap($customer->email, 15, "<br>", true).'</div>';
+        // $result .= '<div class="font-semibold py-4 dark:text-gray-200">'.$customer->customer_address.'</div>';
+        // $result .= '</div>';
 
 
-        return $result;
+        // return $result;
+
+        return $customer;
     }
 
     public function searchChat(Request $request)

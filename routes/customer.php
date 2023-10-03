@@ -82,9 +82,12 @@ Route::middleware('customer')->group(function ()
     Route::controller(App\Http\Controllers\Customer\ChatCustomerController::class)->prefix('chat')->name('chat.')->group(function ()
     {
         Route::get('messages/', 'getAllMessages')->name('msgs');
-        Route::get('messages/{user}/', 'index')->name('msg');
+
+        // Route::get('messages/{user}/', 'index')->name('msg');
+
         Route::get('/store/msg/{user}/{customer}', 'store')->name('store.msg');
-        Route::get('/get/msg/{user}/{customer}', 'getLiveMessages')->name('get.msg');
+
+        Route::get('/get/msg/{user}/{customer}', 'LoadMessages')->name('get.msg');
     });
 
 

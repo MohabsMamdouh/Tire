@@ -26,35 +26,38 @@
         </div>
         <!-- end chat list -->
 
+
         <!-- message -->
-        <div class="flex flex-col h-screen w-3/5 mx-auto p-3">
-            <div id="messagesShow" class="flex-grow flex-end space-y-4 p-3 overflow-y-auto overflow-x-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-                <!-- Render messages here -->
-            </div>
-            <div class="mt-4 controller hidden">
-                <!-- Render input field here -->
-                <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" id="msg" type="text" placeholder="type your message here..."  />
-                <div class="w-full">
-                    <button type="button" id="send" style="background: #3B82F6;"
-                        class="inline-flex w-full items-center justify-center rounded-lg px-4 py-2 mt-1 mr-3 transition duration-500 ease-in-out text-white hover:bg-blue-400 dark:bg-blue-500 bg-blue-500 focus:outline-none">
-                            <span class="font-bold">Send</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 ml-2 transform rotate-90">
-                                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
-                            </svg>
-                    </button>
+        <div class="flex flex-col h-screen w-5/6 mx-auto p-3">
+            <div class="chat hidden">
+                <div id="cInfo" class="top bg-gray-300 m-auto p-2">
+                    <div>
+                        <i class="fas fa-user"></i>
+                        <p></p>
+                        <small class="address"></small><br>
+                        <small class="phone"></small>
+                    </div>
+
+                </div>
+                <hr class="border-2 border-gray-500 dark:border-gray-200 rounded-lg">
+
+                <div id="msgs" class="messages w-full bg-gray-100 m-auto p-2" style="overflow: scroll">
+                    <div id="messagesShow"></div>
+                </div>
+
+                <div class="bottom">
+                    <form>
+                        <div class="usr">
+                            <input type="hidden" name="customer_id" id="customer_id" value="">
+                        </div>
+                        <input class="w-full bg-gray-300 py-5 px-3" name="message" id="message" type="text" placeholder="type your message here..."  />
+                        <button type="submit"></button>
+                    </form>
                 </div>
             </div>
         </div>
         <!-- end message -->
-
-
-
-        <div id="CustomerInfo" class="w-1/5 border-l-2 dark:border-gray-400 px-5">
-        </div>
-
-
     </div>
-    <!-- end message -->
 </div>
 
 
@@ -62,8 +65,8 @@
     $(document).ready(function () {
 
         setInterval(function() {
-            if ($('#customer_id').val() != undefined) {
-                getMessages($('#customer_id').val());
+            if ($('#cid').val() != undefined) {
+                getMessages($('#cid').val());
             }
         }, 5000);
 
@@ -71,7 +74,8 @@
             var cidValue = $(this).find('.cid').val();
             getMessages(cidValue);
             customerInfo(cidValue);
-            $('.controller').removeClass('hidden');
+            $('.chat').removeClass('hidden');
+            $("form .usr").html('<input type="hidden" name="cid" id="cid" value="'+ cidValue +'">');
         });
 
         $('#MessageSend').click(function (e) {
@@ -79,10 +83,14 @@
             send($('#customer_id').val());
         });
 
-        $('input').on('keydown', function(event) {
-            if (event.key === 'Enter') {
-                send($('#customer_id').val());
-            }
+        $("form").submit(function (e) {
+            e.preventDefault();
+            send($("#cid").val());
+        });
+
+        $("form").submit(function (e) {
+            e.preventDefault();
+            send($("#cid").val());
         });
 
         $(document).on('keyup', '#search', function() {

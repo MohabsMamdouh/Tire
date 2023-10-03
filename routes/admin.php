@@ -202,7 +202,7 @@ Route::middleware(['auth', 'verified'])->group(function ()
     {
         Route::get('/', 'index')->name('messages');
         Route::get('/store/msg/{user}/{customer}', 'store')->name('store.msg');
-        Route::get('/get/msg/{user}/{customer}', 'getLiveMessages')->name('get.msg');
+        Route::get('/get/msg/{user}/{customer}', 'LoadMessages')->name('get.msg');
     });
 
     // Picks Section
